@@ -1,0 +1,10 @@
+asgiref==3.7.2
+Django==4.2.8
+sqlparse==0.4.4
+typing_extensions==4.8.0
+python-environ==0.4.54
+django-cors-headers==4.3.1
+djangorestframework==3.14.0
+Pillow==10.1.0
+django-storages==1.14.2
+django-ckeditor==6.7.0
