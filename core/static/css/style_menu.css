@@ -1,0 +1,130 @@
+/* Estilo para el encabezado */
+#masthead {
+    background-color: #000; /* Azul */
+    color: white;
+    padding: 0px 0;
+    text-align: center;
+}
+
+/* CSS modificado para usar Flexbox */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.navbar-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title img {
+    margin: 0;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    margin-right: 10px;
+}
+
+.user-email {
+    margin-right: 10px;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+
+
+/* Estilo para el título del sitio */
+.site-title {
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+
+}
+
+/* Estilo para el menú de navegación superior */
+.top-menu {
+    background-color: #007BFF;
+    overflow: hidden;
+    padding-top: 10px;
+    margin-top: 10px;
+    display: flex; /* Añade flexbox al contenedor del menú */
+    align-items: center; /* Alinea verticalmente los elementos del menú */
+}
+
+/* Estilo para los elementos del menú */
+.menu-item {
+    list-style: none; /* Elimina los estilos de lista por defecto */
+    display: flex; /* Añade flexbox a la lista de elementos del menú */
+    padding: 0; /* Elimina el padding por defecto de la lista */
+    margin: 0; /* Elimina el margen por defecto de la lista */
+}
+
+.menu-item li {
+    padding: 0px 15px;
+}
+
+.menu-item li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+/* Estilo para el botón del menú deslizante */
+.sliding-menu-button {
+    background-color: green; /* Gris oscuro */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+    transition: right 0.3s; 
+}
+
+
+/* Estilo para el menú deslizante */
+.sliding-menu-content {
+    background-color: #000; /* Azul */
+    color: white;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -250px; /* Oculto inicialmente */
+    transition: right 0.3s;
+}
+
+/* Clase 'active' para mostrar el menú */
+.sliding-menu-content.active {
+    right: 0;
+}
+
+/* Estilo para el cuerpo de la página cuando el menú está activo */
+body.menu-active {
+    overflow: hidden;
+    margin-right: 250px; /* Mismo ancho que el menú deslizante */
+    transition: margin-right 0.3s;
+}
+
+/* Ajusta la posición del botón cuando el menú está activo */
+body.menu-active .sliding-menu-button {
+    right: 300px; /* Mismo ancho que el menú deslizante */
+}

@@ -1,0 +1,157 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title> TITULO {% block title %} {% endblock %}</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    
+    <link href="{% static 'css/mont_rainer.css' %}" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
+
+    <style>
+        .cover-heading {
+            color : #ff561e;
+        }
+
+#language-form {
+  margin-right: 40px;
+}
+/* Estilo personalizado para los botones de radio */
+.form-check-input:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Estilo para cambiar el aspecto del botón de radio (opcional) */
+.form-check-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 1.3em;
+  height: 1.3em;
+  border: 1px solid #007bff;
+  border-radius: 50%;
+  outline: none;
+  margin-right: 0.5em;
+}
+
+.form-check-input:checked::before {
+  content: '';
+  display: block;
+  width: 0.65em;
+  height: 0.65em;
+  margin: 0.2em;
+  background-color: #007bff;
+  border-radius: 50%;
+}
+      </style>
+
+  </head>
+
+  <body class="text-center flex-column justify-content: start">
+    <header class="d-flex h-50 flex-column">
+        <div style="display: flex; justify-content: around; align-items: center; margin-left: 100px;">
+            <div style="flex: 1; text-align: left;">
+                <img src="{% static 'img/signature.png' %}" id="image" style="margin: 0;" height="100" alt="Card image cap">
+            </div>
+            <div style="flex: 1; text-align: right; margin-right: 100px;">
+              <nav class="nav nav-masthead justify-content-end">
+                <a class="nav-link active" href="#">{{ menu_header.one }}</a>
+                <a class="nav-link" href="#">{{ menu_header.two }}</a>
+                <a class="nav-link" href="#">{{ menu_header.three }}</a>
+              </nav>
+                
+            </div>
+            <!-- HTML con casillas de verificación -->
+            <form method="post" id="language-form">
+              {% csrf_token %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="language" value="English" id="languageEnglish" onchange="document.getElementById('language-form').submit();">
+                <label class="form-check-label" for="languageEnglish">
+                  English <img src="{% static 'img/usa_england.ico' %}" style="margin-left: 5px;" height="16" alt="UK Flag">
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="language" value="Spanish" id="languageSpanish" onchange="document.getElementById('language-form').submit();" checked>
+                <label class="form-check-label" for="languageSpanish">
+                  Spanish <img src="{% static 'img/chile_spain.ico' %}" style="margin-left: 5px;" height="16" alt="Spain Flag">
+                </label>
+              </div>
+            </form>
+            
+
+        </div>
+        
+      </header>
+
+    <div class="cover-container h-100 d-flex mx-auto flex-column" style="padding-top: 100px;">      
+          
+
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading" id="typewriter"></h1>
+        <p class="lead">{{ text }}</p>
+        <p class="lead">
+          <a href="#" class="btn btn-lg btn-secondary">{{ button_text }}</a>
+        </p>
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Cover template for</p>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+    <script>
+        const typewriterText = ["Cover your page.", "Create your story.", "Design your space."];
+        let textPosition = 0;
+        let index = 0;
+    
+        function typeWriter() {
+          if (textPosition < typewriterText.length) {
+            let currentText = typewriterText[textPosition];
+            let letter = currentText.slice(0, ++index);
+    
+            document.getElementById('typewriter').textContent = letter;
+            if (letter.length === currentText.length) {
+              textPosition++;
+              index = 0;
+              setTimeout(typeWriter, 1000);
+            } else {
+              setTimeout(typeWriter, 80);
+            }
+          } else {
+            textPosition = 0;
+            setTimeout(typeWriter, 1000);
+          }
+        }
+    
+        typeWriter();
+      </script>
+      <script src="static/js/choose_language.js"></script>
+      <script>
+        // Seleccionar el idioma guardado en la sesión, si existe
+        const savedLanguage = '{{ request.session.language|default:"English" }}';
+        document.getElementById('language' + savedLanguage).checked = true;
+      </script>
+
+
+  </body>
+</html>

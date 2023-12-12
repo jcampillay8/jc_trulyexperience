@@ -1,0 +1,60 @@
+{% load static %}
+<header id="masthead">
+    <div class="inner-wrap">
+   
+      <nav class="navbar">
+        <div class="navbar-container">
+          <a href="/" class="site-title">
+            <img src="{% static 'img/the-jaime-campillay-experience2.png' %}" id="image" alt="Card image cap" height="50">
+          </a>
+          <div class="navbar-user">
+            <span class="username">{{ request.user.username }}</span>
+            <small class="user-email">({{ request.user.email }})</small>
+                        <!-- HTML con casillas de verificación -->
+                        <form method="post" id="language-form">
+                          {% csrf_token %}
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="language" value="English" id="languageEnglish" onchange="document.getElementById('language-form').submit();">
+                            <label class="form-check-label" for="languageEnglish">
+                              English <img src="{% static 'img/usa_england.ico' %}" style="margin-left: 5px;" height="16" alt="UK Flag">
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="language" value="Spanish" id="languageSpanish" onchange="document.getElementById('language-form').submit();" checked>
+                            <label class="form-check-label" for="languageSpanish">
+                              Spanish <img src="{% static 'img/chile_spain.ico' %}" style="margin-left: 5px;" height="16" alt="Spain Flag">
+                            </label>
+                          </div>
+                        </form>
+            <form action="{% url 'logout' %}" method="POST" class="logout-form">
+              
+              {% csrf_token %}
+              <button type="submit" class="logout-button">
+                <i class="fas icon fa-sign-out-alt"></i> Logout
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+      <nav role="navigation" class="menu top-menu">
+          <ul class="menu-item">
+              <li class="home"><a href="/">Data Science Campus</a></li>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/projects/">Projects</a></li>
+              <li><a href="/posts/">Blog</a></li>
+              <li><a href="/training/">Training</a></li>
+              <li><a href="/tools/">Tools</a></li>
+              <li><a href="/contact/">Contact Us</a></li>
+              
+          </ul>
+          <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+            <span class="nav-lines"></span>
+          </button>
+
+      </nav>
+      
+    </div>
+  </header>
+  

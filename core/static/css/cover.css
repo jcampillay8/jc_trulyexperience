@@ -1,0 +1,169 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fff;
+  border: .05rem solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #333;
+}
+
+body {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+
+  background-image: url('/static/img/Mont-Rainer.png') !important;
+  background-size: cover;
+  
+
+  
+  background-attachment: fixed;
+
+}
+
+.cover-container {
+  max-width: 42em;
+}
+
+
+
+
+/*
+ * Header
+ */
+.masthead {
+  margin-bottom: 2rem;
+}
+
+.masthead-brand {
+  margin-bottom: 0;
+}
+
+.nav-masthead .nav-link {
+  padding: .25rem 0;
+  font-weight: 900;
+  color: #fff;
+  background-color: transparent;
+  border-bottom: .25rem solid transparent;
+  font-size: 1.5rem; /* Aumenta el tamaño de la fuente a 1.25rem */
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: #ff561e;
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 1rem;
+}
+
+.nav-masthead .active {
+  color: #ff561e;
+  border-bottom-color: #ff561e;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header.mb-auto {
+  margin-bottom: auto;
+}
+
+main.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+footer.mt-auto {
+  margin-top: auto;
+}
+
+@media (min-width: 24em) {
+  .masthead-brand {
+    float: left;
+  }
+  .nav-masthead {
+    float: right;
+  }
+}
+
+/* Establece el ancho del contenedor del header al 100% */
+.masthead {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Asegúrate de que la imagen y la navegación ocupen el espacio necesario */
+.masthead-brand,
+.nav-masthead {
+  flex: 1;
+}
+
+/* Ajusta el margen de la imagen si es necesario */
+.masthead-brand img {
+  margin-left: 1rem; /* Ajusta este valor según sea necesario */
+}
+
+/* Ajusta el margen de la navegación si es necesario */
+.nav-masthead {
+  margin-right: 1rem; /* Ajusta este valor según sea necesario */
+}
+
+/* Si hay un contenedor que limita el ancho del header, ajusta su ancho también */
+.cover-container {
+  width: 100%; /* O el ancho máximo que desees */
+}
+
+/*
+ * Cover
+ */
+.cover {
+  padding: 0 1.5rem;
+}
+.cover .btn-lg {
+  padding: .75rem 1.25rem;
+  font-weight: 700;
+}
+
+
+
+/*
+ * Footer
+ */
+.mastfoot {
+  color: rgba(255, 255, 255, .5);
+}
