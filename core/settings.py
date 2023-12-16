@@ -42,6 +42,8 @@ THIRD_PARTY_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'livereload',
+    #'guest_user',
+    'six',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -70,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
+  #  'guest_user.middleware.GuestUserMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -121,6 +124,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# AUTHENTICATION_BACKENDS = [
+#     # ...
+#     'django.contrib.auth.backends.ModelBackend',
+#     'guest_user.backends.GuestBackend',
+#     # ...
+# ]
+
 
 
 # Internationalization

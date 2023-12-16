@@ -1,21 +1,22 @@
-from . import views
-from django.urls import path, include
-from django.contrib.auth.decorators import login_required
+from .views import RegistrationView, UsernameValidationView, EmailValidationView, RequestPasswordResetEmail, LogoutView, VerificationView, LoginView,CompletePasswordReset
+from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-urlpatterns = [
-    path("login", views.LoginView.as_view(), name="login"),
-    path("register", views.RegistrationView.as_view(), name="register"),
-    path("logout", views.LogoutView.as_view(), name="logout"),
-    path('activate/<uidb64>/<token>',
-         views.VerificationView.as_view(), name='activate'),
-    path('request-reset', views.RequestResetLinkView.as_view(),
-         name='reset-password'),
-    path('change-password/<uidb64>/<token>',
-         views.CompletePasswordChangeView.as_view(), name='change-password'),
-    path('check_email', csrf_exempt(
-        views.CredentialsValidationView.as_view()), name='validate-email'),
 
-    path('check_username', csrf_exempt(
-        views.UsernameValidationView.as_view()), name='validate-username'),
+urlpatterns = [
+    path('register', RegistrationView.as_view(), name="register"),
+    path('login', LoginView.as_view(), name="login"),
+    path('logout', LogoutView.as_view(), name="logout"),
+    path('validate-username', csrf_exempt(UsernameValidationView.as_view()),
+         name="validate-username"),
+    path('validate-email', csrf_exempt(EmailValidationView.as_view()),
+         name='validate_email'),
+    path('activate/<uidb64>/<token>',
+         VerificationView.as_view(), name='activate'),
+     
+     path('set-new-password/<uidb64>/<token>',
+         CompletePasswordReset.as_view(), name='reset-user-password'),
+     path('request-password',RequestPasswordResetEmail.as_view(),name="request-password"),
+     
+
 ]

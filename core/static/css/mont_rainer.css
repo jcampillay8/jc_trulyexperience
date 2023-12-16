@@ -109,3 +109,39 @@ body {
     top: -12px;
     left: 6px;
 }
+
+.cover-heading {
+  color : #ff561e;
+}
+
+#language-form {
+margin-right: 40px;
+}
+/* Estilo personalizado para los botones de radio */
+.form-check-input:checked {
+background-color: #007bff;
+border-color: #007bff;
+}
+
+/* Estilo para cambiar el aspecto del botón de radio (opcional) */
+.form-check-input {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+width: 1.3em;
+height: 1.3em;
+border: 1px solid #007bff;
+border-radius: 50%;
+outline: none;
+margin-right: 0.5em;
+}
+
+.form-check-input:checked::before {
+content: '';
+display: block;
+width: 0.65em;
+height: 0.65em;
+margin: 0.2em;
+background-color: #007bff;
+border-radius: 50%;
+}
