@@ -7,107 +7,77 @@
 
     <title> TITULO {% block title %} {% endblock %}</title>
 
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">    
     <link href="{% static 'css/mont_rainer.css' %}" rel="stylesheet">
-    
-    <!-- Custom styles for this template -->
 
   </head>
 
   <body class="text-center flex-column justify-content: start">
-    <header class="d-flex h-50 flex-column">
-        <div style="display: flex; justify-content: around; align-items: center; margin-left: 100px;">
-            <div style="flex: 1; text-align: left;">
-                <img src="{% static 'img/signature.png' %}" id="image" style="margin: 0;" height="100" alt="Card image cap">
-            </div>
-            <div style="flex: 1; text-align: right; margin-right: 100px;">
-              <nav class="nav nav-masthead justify-content-end">
-                <a class="nav-link active" href="#">{{ menu_header.one }}</a>
-                <a class="nav-link" href="#">{{ menu_header.two }}</a>
+    <header class="d-flex flex-column">
+      <div class="row">
+        <div class="col-md-4 text-md-left text-center">
+          <a href="{% if request.user.is_authenticated %}{% url 'home' %}{% else %}{% url 'welcome' %}{% endif %}">
+          <img src="{% static 'img/the-jaime-campillay-experience2.png' %}" id="image" style="width: 100%; max-width: 700px; padding-left: 20px; padding-right: 20px;" alt="Card image cap;">
+        </a>
+        </div>
+        <div class="col-md-6 text-md-right text-right">
+            <nav class="nav nav-masthead justify-content-end">
+                <a class="nav-link active" href="/authentication/login">{{ menu_header.one }}</a>
+                <a class="nav-link" href="/authentication/register">{{ menu_header.two }}</a>
                 <a class="nav-link" href="#">{{ menu_header.three }}</a>
-              </nav>
-                
-            </div>
-            <!-- HTML con casillas de verificación -->
-            <form method="post" id="language-form">
-              {% csrf_token %}
-              <div class="form-check">
+            </nav>
+        </div>
+        <div class="col-md-2 text-md-right text-center">
+          <form method="post" id="language-form">
+            {% csrf_token %}
+            <div class="form-check d-none d-md-block">
+              <input class="form-check-input" type="radio" name="language" value="English" id="languageEnglish" onchange="document.getElementById('language-form').submit();">
+              <label class="form-check-label" for="languageEnglish">
+                  English <img src="{% static 'img/usa_england.ico' %}" style="margin-left: 5px;" height="16" alt="UK Flag">
+              </label>
+          </div>
+          <div class="form-check d-none d-md-block">
+              <input class="form-check-input" type="radio" name="language" value="Spanish" id="languageSpanish" onchange="document.getElementById('language-form').submit();" checked>
+              <label class="form-check-label" for="languageSpanish">
+                  Spanish <img src="{% static 'img/chile_spain.ico' %}" style="margin-left: 5px;" height="16" alt="Spain Flag">
+              </label>
+          </div>
+            <div class="form-check form-check-inline d-md-none">
                 <input class="form-check-input" type="radio" name="language" value="English" id="languageEnglish" onchange="document.getElementById('language-form').submit();">
                 <label class="form-check-label" for="languageEnglish">
-                  English <img src="{% static 'img/usa_england.ico' %}" style="margin-left: 5px;" height="16" alt="UK Flag">
+                    English <img src="{% static 'img/usa_england.ico' %}" style="margin-left: 5px;" height="16" alt="UK Flag">
                 </label>
-              </div>
-              <div class="form-check">
+            </div>
+            <div class="form-check form-check-inline d-md-none">
                 <input class="form-check-input" type="radio" name="language" value="Spanish" id="languageSpanish" onchange="document.getElementById('language-form').submit();" checked>
                 <label class="form-check-label" for="languageSpanish">
-                  Spanish <img src="{% static 'img/chile_spain.ico' %}" style="margin-left: 5px;" height="16" alt="Spain Flag">
+                    Spanish <img src="{% static 'img/chile_spain.ico' %}" style="margin-left: 5px;" height="16" alt="Spain Flag">
                 </label>
-              </div>
-            </form>
-            
-
+            </div>
+        </form>
         </div>
+    </div>
         
       </header>
 
-    <div class="cover-container h-100 d-flex mx-auto flex-column" style="padding-top: 100px;">      
-          
-
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading" id="typewriter"></h1>
-        <p class="lead">{{ text }}</p>
-        <p class="lead">
-          <a href="home" class="btn btn-lg btn-secondary">{{ button_guest }}</a>
-          <a href="/authentication/login" class="btn btn-lg btn-secondary">{{ button_authenticated }}</a>
-        </p>
-      </main>
+      {% block content %} {% endblock %}
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
-          <p>Cover template for</p>
+          <p class="bigger-text" style="font-size: 20px; color: white;">Copyright © 2024 The Jaime Campillay Experience.</p>
         </div>
       </footer>
-    </div>
+      
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 
     <!-- Graphs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
-    <script>
-        const typewriterText = ["Cover your page.", "Create your story.", "Design your space."];
-        let textPosition = 0;
-        let index = 0;
-    
-        function typeWriter() {
-          if (textPosition < typewriterText.length) {
-            let currentText = typewriterText[textPosition];
-            let letter = currentText.slice(0, ++index);
-    
-            document.getElementById('typewriter').textContent = letter;
-            if (letter.length === currentText.length) {
-              textPosition++;
-              index = 0;
-              setTimeout(typeWriter, 1000);
-            } else {
-              setTimeout(typeWriter, 80);
-            }
-          } else {
-            textPosition = 0;
-            setTimeout(typeWriter, 1000);
-          }
-        }
-    
-        typeWriter();
-      </script>
+
+      <script src="static/js/typewriter.js"></script>
       <script src="static/js/choose_language.js"></script>
       <script>
         // Seleccionar el idioma guardado en la sesión, si existe

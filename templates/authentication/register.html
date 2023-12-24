@@ -1,4 +1,4 @@
-{% extends 'base_auth.html' %} {% load static%} {% block title%} | Register Account
+{% extends 'welcome.html' %} {% load static%} {% block title%} | Register Account
 {%endblock%} {%block content%}
 
 <section id="register">
@@ -90,7 +90,7 @@
                                             <hr class="mr-1">
                                         </div>
                                     </div>
-                                    <a href="{% url 'reset-password'%}" class="btn btn-block btn-sm">Reset Password</a>
+                                    <a href="{% url 'request-password'%}" class="btn btn-block btn-sm">Reset Password</a>
 
                                     <a href="{% url 'login' %}" class="btn btn-block btn-sm">Back to Login</a>
 

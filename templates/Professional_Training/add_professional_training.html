@@ -1,0 +1,62 @@
+{% extends 'home/home.html' %}
+
+{% load static %}
+
+{% block title %}Agregar Entrenamiento Profesional{% endblock %}
+
+{% block content %}
+<link href="{% static 'business-casual.css' %}" rel="stylesheet">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group row">
+            <label for="{{ form.title.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Título:</label>
+            <div class="col-sm-9">
+              {{ form.title }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.subtitle.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Subtítulo:</label>
+            <div class="col-sm-9">
+              {{ form.subtitle }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.content.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Contenido:</label>
+            <div class="col-sm-9">
+              {{ form.content }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.date.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Fecha:</label>
+            <div class="col-sm-9">
+              {{ form.date }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.image.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Imagen:</label>
+            <div class="col-sm-9">
+              {{ form.image }}
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.level.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Nivel:</label>
+              <div class="col-sm-9">
+                {{ form.level }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

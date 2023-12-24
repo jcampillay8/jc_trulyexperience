@@ -11,18 +11,39 @@ class GuestUser:
     is_authenticated = False
     is_anonymous = False
 
+
+
 def login_or_guest_required(func):
     @wraps(func)
     def decorated_view(request, *args, **kwargs):
-        if isinstance(request.user, AnonymousUser):
-            request.user = GuestUser()  # Crear un nuevo usuario invitado
+        if isinstance(request.user, AnonymousUser) and not request.session.get('is_guest', False):
+            return redirect('welcome')  # Redirigir a todos los usuarios anónimos que no son invitados a 'welcome'
         if request.user.is_authenticated:
             return login_required(login_url='/authentication/login')(func)(request, *args, **kwargs)
-        elif request.user.is_guest:
+        elif request.session.get('is_guest', False):
             return allow_guest_user(func)(request, *args, **kwargs)
         else:
             return redirect('/authentication/login')
     return decorated_view
+
+
+def guest_login(request):
+    request.session['is_guest'] = True  # Establecer una variable de sesión para indicar que el usuario es un invitado
+    return redirect('home')  # Redirigir al usuario a la página de inicio
+
+
+@login_or_guest_required
+def home(request):
+    print('Pase por Home ')
+    # Si el usuario no está autenticado o no es un invitado, redirigir a 'welcome'
+    if not request.user.is_authenticated and not request.user.is_guest:
+        return redirect('welcome')
+    print('Nombre Usuario: '+ str(request.user))
+    return render(request, 'home/home.html')
+
+
+
+
 
 def welcome(request):
     # Si se envía una solicitud POST, actualizar el idioma en la sesión
@@ -49,12 +70,9 @@ def welcome(request):
         'button_guest': home_button_guest,
         'button_authenticated':home_button_authenticated,
     }
-    return render(request, 'welcome.html', context)
+    return render(request, 'partials/_welcome_content.html', context)
 
-@login_or_guest_required
-def home(request):
-    print('Nombre Usuario: '+ str(request.user))
-    return render(request, 'home/home.html')
+
 
 
 #########################################################################################################################################################
