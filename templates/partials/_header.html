@@ -4,9 +4,9 @@
    
       <nav class="navbar">
         <div class="navbar-container">
-          <a href="/" class="site-title">
+          <a href="{% url 'welcome' %}" class="site-title">
             <img src="{% static 'img/the-jaime-campillay-experience2.png' %}" id="image" alt="Card image cap" height="50">
-          </a>
+        </a>
           <div class="navbar-user">
             <span class="username">{{ request.user.username }}</span>
             <small class="user-email">({{ request.user.email }})</small>

@@ -46,6 +46,8 @@ def home(request):
 
 
 def welcome(request):
+    if request.user.is_authenticated and not request.session.get('is_guest', False):
+        return redirect('home')
     # Si se envía una solicitud POST, actualizar el idioma en la sesión
     if request.method == 'POST':
         request.session['language'] = request.POST.get('language', 'English')
