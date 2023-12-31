@@ -1,234 +1,279 @@
-/* Estilo para el encabezado */
-#masthead {
-    background-color: #000; /* Azul */
-    color: white;
-    padding: 0px 0;
-    text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
-
-/* CSS modificado para usar Flexbox */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
-}
-
-.navbar-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px;
-}
-
-.site-title img {
-    margin: 0;
-}
-
-.navbar-user {
-    display: flex;
-    align-items: center;
-}
-
-.username {
-    margin-right: 10px;
-}
-
-.user-email {
-    margin-right: 10px;
-}
-
-.logout-form {
-    display: inline;
-}
-
-.logout-button {
-    background: none;
-    border: none;
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
-    padding-left: 30px;
-}
-
-
-/* Estilo para el título del sitio */
-.site-title {
-    font-size: 24px;
-    text-decoration: none;
-    color: white;
-
-}
-
-/* Estilo para el menú de navegación superior */
-.top-menu {
-    background-color: #013a57;
-    overflow: hidden;
-    padding: 20px 20px;
-    margin-top: 10px;
-    display: flex; /* Añade flexbox al contenedor del menú */
-    align-items: center; /* Alinea verticalmente los elementos del menú */
-    justify-content: space-between; /* Distribuye el espacio entre los elementos */
-}
-
-/* Estilo para los elementos del menú */
-.menu-item {
-    list-style: none; /* Elimina los estilos de lista por defecto */
-    display: flex; /* Añade flexbox a la lista de elementos del menú */
-    padding: 0; /* Elimina el padding por defecto de la lista */
-    margin: 0; /* Elimina el margen por defecto de la lista */
-    flex-grow: 1; /* Permite que la lista crezca para ocupar el espacio disponible */
-    justify-content: flex-end; /* Alinea los elementos al final (derecha) */
-}
-
-.menu-item li {
-    padding: 0px 15px;
-}
-
-.menu-item li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
-
-/* Estilo para el elemento 'home' para que se mantenga a la izquierda */
-.menu-item li.home {
-    margin-right: auto; /* Empuja todos los demás elementos hacia la derecha */
-}
-
-
-/* Estilo para el botón del menú deslizante */
-.sliding-menu-button {
-    background-color: green; /* Gris oscuro */
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 24px;
-    transition: right 0.3s; 
-    margin: 0px 40px;
-}
-
-/* Estilo base para las líneas del menú */
-.nav-line {
-    display: block;
-    width: 30px; /* Ancho de las líneas */
-    height: 3px; /* Altura de las líneas */
-    background-color: white;
-    margin: 5px auto; /* Espaciado entre líneas */
-    transition: all 0.3s; /* Transición suave para las transformaciones */
-  }
+nav{
+  position: fixed;
+  z-index: 99;
+  width: 100%;
   
-  /* Estilos para la transformación a 'X' */
-  .sliding-menu-button.active .nav-line-1 {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  
-  .sliding-menu-button.active .nav-line-2 {
-    opacity: 0;
-  }
-  
-  .sliding-menu-button.active .nav-line-3 {
-    transform: rotate(-45deg) translate(7px, -7px);
-  }
-  
-
-/* Estilo para el menú deslizante */
-.sliding-menu-content {
-    background-color: #000; /* Azul */
-    color: white;
-    width: 250px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    right: -250px; /* Oculto inicialmente */
-    transition: right 0.3s;
+  background: #242526;
+}
+nav .wrapper{
+  position: relative;
+  max-width: 1300px;
+  padding: 0px 30px;
+  height: 70px;
+  line-height: 70px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wrapper .logo a{
+  color: #f2f2f2;
+  font-size: 30px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.wrapper .nav-links{
+  display: inline-flex;
+}
+.nav-links li{
+  list-style: none;
+}
+.nav-links li a{
+  color: #f2f2f2;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 9px 15px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.nav-links li a:hover{
+  background: #3A3B3C;
+  border-bottom: 2px solid #ff561e;
+}
+.nav-links li a:active, .nav-links li a:focus {
+  color: #ff561e !important;
+  border-bottom: 2px solid #ff561e !important;
 }
 
-/* Clase 'active' para mostrar el menú */
-.sliding-menu-content.active {
-    right: 0;
+.nav-links .mobile-item{
+  display: none;
 }
-
-/* Estilo para el cuerpo de la página cuando el menú está activo */
-body.menu-active {
-    overflow: hidden;
-    margin-right: 250px; /* Mismo ancho que el menú deslizante */
-    transition: margin-right 0.3s;
+.nav-links .drop-menu{
+  position: absolute;
+  background: #242526;
+  width: 180px;
+  line-height: 45px;
+  top: 85px;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
-
-/* Ajusta la posición del botón cuando el menú está activo */
-body.menu-active .sliding-menu-button {
-    right: 300px; /* Mismo ancho que el menú deslizante */
+.nav-links li:hover .drop-menu,
+.nav-links li:hover .mega-box{
+  transition: all 0.3s ease;
+  top: 70px;
+  opacity: 1;
+  visibility: visible;
 }
-
-/*
- * Footer
- */
- .mastfoot {
-    color: #000;
-  }
-
-  /* Estilo para las etiquetas de las casillas de verificación */
-.form-check-label {
-    color: white; /* Cambia el color del texto a blanco */
-    font-size: 20px; /* Aumenta el tamaño de la fuente */
-    font-weight: bold;
-    margin-left:10px;
-    -webkit-text-stroke-width: 0.75px;
-    -webkit-text-stroke-color: black;
-  }
-  
-  /* Estilo para el checkbox cuando está seleccionado */
-  .form-check-input:checked {
-      background-color: #007bff; /* Color azul para el fondo */
-      border-color: #007bff; /* Color azul para el borde */
-  }
-  
-  /* Estilo para el indicador del checkbox seleccionado */
-  .form-check-input:checked::after {
-      content: '';
-      display: block;
-      width: 5px;
-      height: 10px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-      position: relative;
-      top: -12px;
-      left: 6px;
-  }
-  
-  .cover-heading {
-    color : #ff561e;
-  }
-
-  /* Estilo personalizado para los botones de radio */
-  .form-check-input:checked {
-  background-color: #007bff;
-  border-color: #007bff;
-  }
-  
-  /* Estilo para cambiar el aspecto del botón de radio (opcional) */
-  .form-check-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 1.3em;
-  height: 1.3em;
-  border: 1px solid #007bff;
-  border-radius: 50%;
-  outline: none;
-  margin-right: 0.5em;
-  }
-  
-  .form-check-input:checked::before {
-  content: '';
+.drop-menu li a{
+  width: 100%;
   display: block;
-  width: 0.65em;
-  height: 0.65em;
-  margin: 0.2em;
-  background-color: #007bff;
-  border-radius: 50%;
+  padding: 0 0 0 15px;
+  font-weight: 400;
+  border-radius: 0px;
+}
+.mega-box{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 0 30px;
+  top: 85px;
+  opacity: 0;
+  visibility: hidden;
+}
+.mega-box .content{
+  background: #242526;
+  padding: 25px 20px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+.mega-box .content .row{
+  width: calc(25% - 30px);
+  line-height: 45px;
+}
+.content .row img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.content .row header{
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 500;
+}
+.content .row .mega-links{
+  margin-left: -40px;
+  border-left: 1px solid rgba(255,255,255,0.09);
+}
+.row .mega-links li{
+  padding: 0 20px;
+}
+.row .mega-links li a{
+  padding: 0px;
+  padding: 0 20px;
+  color: #d9d9d9;
+  font-size: 17px;
+  display: block;
+}
+.row .mega-links li a:hover{
+  color: #f2f2f2;
+}
+.wrapper .btn{
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+}
+.wrapper .btn.close-btn{
+  position: absolute;
+  right: 30px;
+  top: 10px;
+}
+
+@media screen and (max-width: 970px) {
+  .wrapper .btn{
+    display: block;
   }
+  .wrapper .nav-links{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    max-width: 350px;
+    top: 0;
+    left: -100%;
+    background: #242526;
+    display: block;
+    padding: 50px 10px;
+    line-height: 50px;
+    overflow-y: auto;
+    box-shadow: 0px 15px 15px rgba(0,0,0,0.18);
+    transition: all 0.3s ease;
+  }
+  /* custom scroll bar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #242526;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3A3B3C;
+  }
+  #menu-btn:checked ~ .nav-links{
+    left: 0%;
+  }
+  #menu-btn:checked ~ .btn.menu-btn{
+    display: none;
+  }
+  #close-btn:checked ~ .btn.menu-btn{
+    display: block;
+  }
+  .nav-links li{
+    margin: 15px 10px;
+  }
+  .nav-links li a{
+    padding: 0 20px;
+    display: block;
+    font-size: 20px;
+  }
+  .nav-links .drop-menu{
+    position: static;
+    opacity: 1;
+    top: 65px;
+    visibility: visible;
+    padding-left: 20px;
+    width: 100%;
+    max-height: 0px;
+    overflow: hidden;
+    box-shadow: none;
+    transition: all 0.3s ease;
+  }
+  #showDrop:checked ~ .drop-menu,
+  #showMega:checked ~ .mega-box{
+    max-height: 100%;
+  }
+  .nav-links .desktop-item{
+    display: none;
+  }
+  .nav-links .mobile-item{
+    display: block;
+    color: #f2f2f2;
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  .nav-links .mobile-item:hover{
+    background: #3A3B3C;
+  }
+  .drop-menu li{
+    margin: 0;
+  }
+  .drop-menu li a{
+    border-radius: 5px;
+    font-size: 18px;
+  }
+  .mega-box{
+    position: static;
+    top: 65px;
+    opacity: 1;
+    visibility: visible;
+    padding: 0 20px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .mega-box .content{
+    box-shadow: none;
+    flex-direction: column;
+    padding: 20px 20px 0 20px;
+  }
+  .mega-box .content .row{
+    width: 100%;
+    margin-bottom: 15px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .mega-box .content .row:nth-child(1),
+  .mega-box .content .row:nth-child(2){
+    border-top: 0px;
+  }
+  .content .row .mega-links{
+    border-left: 0px;
+    padding-left: 15px;
+  }
+  .row .mega-links li{
+    margin: 0;
+  }
+  .content .row header{
+    font-size: 19px;
+  }
+}
+nav input{
+  display: none;
+}
+
+.body-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 0 30px;
+}
+.body-text div{
+  font-size: 45px;
+  font-weight: 600;
+}

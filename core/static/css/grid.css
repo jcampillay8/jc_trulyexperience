@@ -39,3 +39,12 @@ body {
     padding: 0 100px; /* Espacio a los lados del contenedor */
     /* Otros estilos que necesites */
   }
+
+  footer.mt-auto {
+    
+    margin-top: auto;
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.9);
+    padding-bottom: 5px;
+  
+  }

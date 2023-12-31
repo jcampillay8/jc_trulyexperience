@@ -34,8 +34,9 @@ DJANGO_APPS  = [
 PROJECT_APPS = [
     'apps.authentication',
     'apps.home',
-    'apps.Professional_Training',
+    'apps.Professional_Studies',
     'apps.contact',
+    'apps.blog',
 ]
 
 THIRD_PARTY_APPS = [
@@ -46,6 +47,7 @@ THIRD_PARTY_APPS = [
     'livereload',
     'guest_user',
     'six',
+    'froala_editor',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -64,6 +66,9 @@ CKEDITOR_CONFIGS = {
 }
 
 CKEDITOR_UPLOAD_PATH = "/media/"
+
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -39,6 +39,8 @@ def home(request):
     if not request.user.is_authenticated and not request.user.is_guest:
         return redirect('welcome')
     print('Nombre Usuario: '+ str(request.user))
+    if request.method == 'POST':
+        request.session['language'] = request.POST.get('language', 'English')
     return render(request, 'home/home.html')
 
 

@@ -1,11 +1,7 @@
 {% extends 'home/home.html' %}
-
 {% load static %}
-
-{% block title %}Agregar Entrenamiento Profesional{% endblock %}
-
+{% block title %}Agregar Estudio Profesional{% endblock %}
 {% block content %}
-<link href="{% static 'business-casual.css' %}" rel="stylesheet">
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -17,19 +13,37 @@
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="form-group row">
-            <label for="{{ form.title.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Título:</label>
+            <label for="{{ form.titulo.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Título:</label>
+            <div class="col-sm-9">
+              {{ form.titulo }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.title.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Title:</label>
             <div class="col-sm-9">
               {{ form.title }}
             </div>
           </div>
           <div class="form-group row">
-            <label for="{{ form.subtitle.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Subtítulo:</label>
+            <label for="{{ form.subtitulo.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Subtítulo:</label>
+            <div class="col-sm-9">
+              {{ form.subtitulo }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.subtitle.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Subtitle:</label>
             <div class="col-sm-9">
               {{ form.subtitle }}
             </div>
           </div>
           <div class="form-group row">
-            <label for="{{ form.content.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Contenido:</label>
+            <label for="{{ form.contenido.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Contenido:</label>
+            <div class="col-sm-9">
+              {{ form.contenido }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.content.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Content:</label>
             <div class="col-sm-9">
               {{ form.content }}
             </div>
@@ -57,6 +71,6 @@
           </div>
         </form>
       </div>
-    </div>
-  </div>
+      </div>
+      </div>
 {% endblock %}

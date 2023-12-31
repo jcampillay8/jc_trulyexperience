@@ -1,0 +1,100 @@
+{% load static %}
+
+
+
+<body>
+  <nav class="navbar_menu">
+    <div class="wrapper">
+      <div class="logo"><a href="#">Jaime Campillay</a></div>
+
+      <ul id="link_menu" class="nav-links" >
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li>
+          <a class="desktop-item active" href="{% url 'welcome' %}" >Home</a>
+          <input type="checkbox" id="showDrop">
+          <label for="showDrop" class="mobile-item">Home</label>
+          <ul class="drop-menu">
+          <li><a href="#">Skills</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Curriculum Vitae</a></li>
+          <li><a href="#">Contact</a></li>
+          </ul>
+      </li>
+      <li>
+        <a class="desktop-item active" href="#">About Me</a>
+        <input type="checkbox" id="showAboutMe">
+        <label for="showAboutMe" class="mobile-item">About Me</label>
+        <ul class="drop-menu">
+          <li><a href="#">¿Quién soy?</a></li>
+          <li><a href="#">¿Cuáles son mis intereses?</a></li>
+          <li><a href="#">¿Qué me interesa Aprender?</a></li>
+          <li><a href="#">¿Qué cosa sé ahora?</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="desktop-item active">Portfolio</a>
+        <input type="checkbox" id="showPortfolio">
+        <label for="showPortfolio" class="mobile-item">Portfolio</label>
+        <div class="mega-box">
+          <div class="content">
+            <div class="row">
+              <header>Personal Projects</header>
+              <ul class="mega-links">
+                <li><a href="#">Personal Projects 1</a></li>
+                <li><a href="#">Personal Projects 2</a></li>
+                <li><a href="#">Personal Projects 3</a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <header>Professional Projects</header>
+              <ul class="mega-links">
+                <li><a href="#">Professional Projects 1</a></li>
+                <li><a href="#">Professional Projects 2</a></li>
+                <li><a href="#">Professional Projects 3</a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <header>Work Experience</header>
+              <ul class="mega-links">
+                <li><a href="#">Work Experience 1</a></li>
+                <li><a href="#">Work Experience 2</a></li>
+                <li><a href="#">Work Experience 3</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="{% url 'professional_studies' %}" class="desktop-item active">Estudies</a>
+        <input type="checkbox" id="showEstudies">
+        <label for="showEstudies" class="mobile-item">Estudies</label>
+        <ul class="drop-menu">
+          <li><a href="#">Show All Studies</a></li>
+          <li><a href="#">Show Studies Level 1</a></li>
+          <li><a href="#">Show Studies Level 2</a></li>
+          <li><a href="#">Show Studies Level 3</a></li>
+        </ul>
+      </li>
+      <li><a class="desktop-item active" href="{% url 'contact' %}">Contact</a></li>     
+      </ul>
+
+    </div>
+    <!-- <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+      <span class="nav-line nav-line-1"></span>
+      <span class="nav-line nav-line-2"></span>
+      <span class="nav-line nav-line-3"></span>
+    </button> -->
+  </nav>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

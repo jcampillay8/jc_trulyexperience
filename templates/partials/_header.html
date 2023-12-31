@@ -1,4 +1,5 @@
 {% load static %}
+
 <header id="masthead">
     <div class="inner-wrap">
    
@@ -10,22 +11,8 @@
           <div class="navbar-user">
             <span class="username">{{ request.user.username }}</span>
             <small class="user-email">({{ request.user.email }})</small>
-                        <!-- HTML con casillas de verificación -->
-                        <form method="post" id="language-form">
-                          {% csrf_token %}
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="language" value="English" id="languageEnglish" onchange="document.getElementById('language-form').submit();">
-                            <label class="form-check-label" for="languageEnglish">
-                              English <img src="{% static 'img/usa_england.ico' %}" style="margin-left: 5px;" height="16" alt="UK Flag">
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="language" value="Spanish" id="languageSpanish" onchange="document.getElementById('language-form').submit();" checked>
-                            <label class="form-check-label" for="languageSpanish">
-                              Spanish <img src="{% static 'img/chile_spain.ico' %}" style="margin-left: 5px;" height="16" alt="Spain Flag">
-                            </label>
-                          </div>
-                        </form>
+            {% include 'partials/_choose_language.html' %}
+
             <form action="{% url 'logout' %}" method="POST" class="logout-form">
               
               {% csrf_token %}
@@ -35,28 +22,6 @@
             </form>
           </div>
         </div>
-      </nav>
-
-
-      <nav role="navigation" class="menu top-menu">
-          <ul class="menu-item">
-            <li class="home"><a href="/">Data Science Campus</a></li>
-            <li class="d-none d-md-block"><a href="/about/">Perfil</a></li>
-            <li class="d-none d-md-block"><a href="/projects/">Servicios</a></li>
-            <li class="d-none d-md-block"><a href="/posts/">Porfolio</a></li>
-            <li class="d-none d-md-block"><a href="/training/">Publicaciones</a></li>
-            <li class="d-none d-md-block"><a href="{% url 'professional_training' %}">Profesional Training</a></li>
-            <li class="d-none d-md-block"><a href="{% url 'contact' %}">Contacto</a></li>
-            
-              
-          </ul>
-          <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-            <span class="nav-line nav-line-1"></span>
-            <span class="nav-line nav-line-2"></span>
-            <span class="nav-line nav-line-3"></span>
-          </button>
-          
-
       </nav>
       
     </div>

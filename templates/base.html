@@ -1,3 +1,4 @@
+
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -11,12 +12,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    
-    <link href="{% static 'css/grid.css' %}" rel="stylesheet">
-    
-    <link href="{% static 'css/style_menu.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_header.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/grid.css' %}" rel="stylesheet"> -->
     <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
     <link href="{% static 'css/default.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_menu.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_home.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
 
 
@@ -26,24 +27,18 @@
     <header class="d-flex h-20 flex-column">
       <div>
         {% include 'partials/_header.html' %}
+        {% include 'partials/_menu_header.html' %}
         {% include 'partials/_sidebarmenu.html' %}
-      </div>
+      </div>    
+      <header class="d-flex h-20 flex-column" style="margin-bottom: 0; padding-bottom: 0">
+
         
       </header>
-
       {% block content %} {% endblock %}
 
-      <footer class="position-relative z-index-10 d-print-none">
-   
-        <div class="py-4 font-weight-light bg-gray-800 text-gray-300">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-md-6 text-center text-md-left">
-                <p class="text-sm mb-md-0">&copy; 2020, Your company.  All rights reserved.</p>
-              </div>
-             
-            </div>
-          </div>
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p class="bigger-text" style="font-size: 20px; color: white;">Copyright © 2024 The Jaime Campillay Experience.</p>
         </div>
       </footer>
 
@@ -66,6 +61,7 @@
     });
     </script>
     <script src="{% static 'js/menusidebar.js' %}"></script>
+    <script src="{% static 'js/choose_language.js' %}"></script>
     <script>
       // Seleccionar el idioma guardado en la sesión, si existe
       const savedLanguage = '{{ request.session.language|default:"English" }}';
