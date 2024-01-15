@@ -7,9 +7,7 @@
     
 }
 
-html, body {
-    
-}
+
 
 /* CSS modificado para usar Flexbox */
 .navbar {
@@ -255,4 +253,19 @@ body.menu-active .sliding-menu-button {
   margin: 0.2em;
   background-color: #007bff;
   border-radius: 50%;
+  }
+
+  @media (max-width: 970px) {
+    #masthead {
+      background-size: cover;
+      background: rgba(0, 0, 0, 0.9);
+      height: 200px; /* La altura se ajustará automáticamente para adaptarse al contenido */
+      padding: auto;
+    }
+  }
+
+
+  .logout-button {
+    position: relative; /* Necesario para que funcione z-index */
+    z-index: 1; /* El elemento de logout estará por encima de los elementos con un z-index menor */
   }

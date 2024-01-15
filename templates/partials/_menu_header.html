@@ -1,7 +1,13 @@
 {% load static %}
-
-
-
+<style>
+.menu-link.active {
+  color: #ff561e !important;
+  border-bottom: 2px solid #ff561e !important;
+}
+.nav-links .drop-menu{
+  width: 300px; /* Ajusta este valor según tus necesidades */
+}
+</style>
 <body>
   <nav class="navbar_menu">
     <div class="wrapper">
@@ -10,7 +16,7 @@
       <ul id="link_menu" class="nav-links" >
         <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
         <li>
-          <a class="desktop-item active" href="{% url 'welcome' %}" >Home</a>
+          <a class="desktop-item menu-link {% if current_page == 'welcome' %}active{% endif %}" href="{% url 'welcome' %}">Home</a>
           <input type="checkbox" id="showDrop">
           <label for="showDrop" class="mobile-item">Home</label>
           <ul class="drop-menu">
@@ -22,7 +28,7 @@
           </ul>
       </li>
       <li>
-        <a class="desktop-item active" href="#">About Me</a>
+        <a class="desktop-item " href="#">About Me</a>
         <input type="checkbox" id="showAboutMe">
         <label for="showAboutMe" class="mobile-item">About Me</label>
         <ul class="drop-menu">
@@ -33,7 +39,7 @@
         </ul>
       </li>
       <li>
-        <a href="#" class="desktop-item active">Portfolio</a>
+        <a href="#" class="desktop-item ">Portfolio</a>
         <input type="checkbox" id="showPortfolio">
         <label for="showPortfolio" class="mobile-item">Portfolio</label>
         <div class="mega-box">
@@ -66,7 +72,7 @@
         </div>
       </li>
       <li>
-        <a href="{% url 'professional_studies' %}" class="desktop-item active">Estudies</a>
+        <a class="desktop-item menu-link {% if current_page == 'professional_studies' %}active{% endif %}" href="{% url 'professional_studies' %}" class="desktop-item ">Estudies</a>
         <input type="checkbox" id="showEstudies">
         <label for="showEstudies" class="mobile-item">Estudies</label>
         <ul class="drop-menu">
@@ -76,25 +82,39 @@
           <li><a href="#">Show Studies Level 3</a></li>
         </ul>
       </li>
-      <li><a class="desktop-item active" href="{% url 'contact' %}">Contact</a></li>     
+      <li><a class="desktop-item menu-link {% if current_page == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a></li>    
       </ul>
+      <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+        <span class="nav-line nav-line-1"></span>
+        <span class="nav-line nav-line-2"></span>
+        <span class="nav-line nav-line-3"></span>
+      </button>
 
     </div>
-    <!-- <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-      <span class="nav-line nav-line-1"></span>
-      <span class="nav-line nav-line-2"></span>
-      <span class="nav-line nav-line-3"></span>
-    </button> -->
+
   </nav>
 
+  <script>
+    // Asegúrate de que el DOM esté completamente cargado antes de ejecutar este script
+document.addEventListener("DOMContentLoaded", function() {
+  // Obtén todos los enlaces del menú
+  var menuLinks = document.querySelectorAll(".menu-link");
+
+  // Añade un controlador de eventos a cada enlace del menú
+  menuLinks.forEach(function(link) {
+    link.addEventListener("click", function() {
+      // Elimina la clase 'active' de todos los enlaces del menú
+      menuLinks.forEach(function(link) {
+        link.classList.remove("active");
+      });
+
+      // Añade la clase 'active' al enlace que se acaba de hacer clic
+      this.classList.add("active");
+    });
+  });
+});
+
+  </script>
+  
 </body>
 </html>
-
-
-
-
-
-
-
-
-

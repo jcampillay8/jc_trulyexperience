@@ -7,4 +7,4 @@ class ProfessionalStudiesForm(forms.ModelForm):
     )
     class Meta:
         model = Professional_Studies
-        fields = ['titulo','title', 'subtitulo', 'subtitle', 'contenido', 'content', 'date', 'image','level']
+        fields = ['titulo','title', 'subtitulo', 'subtitle', 'contenido', 'content', 'date', 'image','level', 'website']

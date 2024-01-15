@@ -48,10 +48,35 @@ nav .wrapper{
   background: #3A3B3C;
   border-bottom: 2px solid #ff561e;
 }
-.nav-links li a:active, .nav-links li a:focus {
+/* .nav-links li a:active, .nav-links li a:focus {
   color: #ff561e !important;
   border-bottom: 2px solid #ff561e !important;
+} */
+
+/* Estilo para el botón */
+#js-menu-trigger {
+  background-color: black; /* Fondo negro */
+  border: none; /* Sin borde */
+  color: white; /* Color de las líneas (rallas) */
+  padding: 10px 20px; /* Espacio alrededor del texto */
+  text-align: center; /* Alineación del texto */
+  text-decoration: none; /* Sin decoración en el texto */
+  display: inline-block;
+  font-size: 8px;
+  margin: 4px 2px;
+  cursor: pointer; /* Cambia el cursor a un puntero cuando se pasa por encima */
+  border-radius: 5px; /* Puntas ligeramente redondeadas */
 }
+
+/* Estilo para las líneas (rallas) del botón */
+.nav-line {
+  width: 20px;
+  height: 2px; /* Líneas más finas */
+  background-color: white; /* Color blanco */
+  margin: 7px auto;
+  padding: 0 15px;
+}
+
 
 .nav-links .mobile-item{
   display: none;
@@ -59,7 +84,7 @@ nav .wrapper{
 .nav-links .drop-menu{
   position: absolute;
   background: #242526;
-  width: 180px;
+  width: 300px;
   line-height: 45px;
   top: 85px;
   opacity: 0;
@@ -159,6 +184,7 @@ nav .wrapper{
     box-shadow: 0px 15px 15px rgba(0,0,0,0.18);
     transition: all 0.3s ease;
   }
+  
   /* custom scroll bar */
   ::-webkit-scrollbar {
     width: 10px;
@@ -277,3 +303,4 @@ nav input{
   font-size: 45px;
   font-weight: 600;
 }
+

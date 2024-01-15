@@ -1,4 +1,4 @@
-{% extends 'home/home.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %}Agregar Estudio Profesional{% endblock %}
 {% block content %}
@@ -59,13 +59,20 @@
             <div class="col-sm-9">
               {{ form.image }}
             </div>
+          </div>
+          <div class="form-group row">
+            <label for="{{ form.website.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Sitio web:</label>
+            <div class="col-sm-9">
+                {{ form.website }}
+            </div>
+        </div>
             <div class="form-group row">
               <label for="{{ form.level.id_for_label }}" class="col-sm-3 col-form-label font-weight-bold">Nivel:</label>
               <div class="col-sm-9">
                 {{ form.level }}
               </div>
             </div>
-          </div>
+          
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Guardar</button>
           </div>

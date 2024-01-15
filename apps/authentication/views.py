@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 import json
-from django.http import JsonResponse
-from django.contrib.auth.models import User
-import json
+from django.views.generic import (View, TemplateView)
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from validate_email import validate_email
@@ -58,58 +56,82 @@ class UsernameValidationView(View):
 
 class RegistrationView(View):
     def get(self, request):
-        return render(request, 'authentication/register.html')
+        return render(request, 'authentication/register.html', self.get_context(request))
 
     def post(self, request):
-        # GET USER DATA
-        # VALIDATE
-        # create a user account
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        # Actualizar el idioma seleccionado en la sesión
+        request.session['language'] = request.POST.get('language', 'English')
 
+        context = self.get_context(request)
+
+        if username and email and password:
+            if not User.objects.filter(username=username).exists():
+                if not User.objects.filter(email=email).exists():
+                    if len(password) < 6:
+                        messages.error(request, 'Password too short')
+                        return render(request, 'authentication/register.html', context)
+
+                    user = User.objects.create_user(username=username, email=email)
+                    user.set_password(password)
+                    user.is_active = False
+                    user.save()
+                    current_site = get_current_site(request)
+                    email_body = {
+                        'user': user,
+                        'domain': current_site.domain,
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'token': account_activation_token.make_token(user),
+                    }
+
+                    link = reverse('activate', kwargs={
+                                    'uidb64': email_body['uid'], 'token': email_body['token']})
+
+                    email_subject = 'Activate your account'
+
+                    activate_url = 'http://'+current_site.domain+link
+
+                    email = EmailMessage(
+                        email_subject,
+                        'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
+                        'noreply@semycolon.com',
+                        [email],
+                    )
+                    EmailThread(email).start()
+                    messages.success(request, 'Account successfully created')
+                    return render(request, 'authentication/register.html',context)
+        else:
+            messages.error(request, 'Please fill all fields')
+            return render(request, 'authentication/register.html',context)
+
+
+    def get_context(self, request):
+        with open('language.json', 'r', encoding='utf-8') as file:
+            language_data = json.load(file)
+
+        # Determinar el idioma seleccionado por el usuario
+        selected_language = request.session.get('language', 'English')
+        
+        # Obtener los datos del idioma seleccionado para la página de inicio
+        register_header = language_data[selected_language]['register']['menu_header']
+        register_text = language_data[selected_language]['register']['text']
+        register_button_guest = language_data[selected_language]['register']['button_guest']
+        register_button_authenticated = language_data[selected_language]['register']['button_authenticated']
+
+        # Crear el contexto con los datos cargados
         context = {
+            'menu_header': register_header,
+            'text': register_text,
+            'button_guest': register_button_guest,
+            'button_authenticated': register_button_authenticated,
             'fieldValues': request.POST
         }
 
-        if not User.objects.filter(username=username).exists():
-            if not User.objects.filter(email=email).exists():
-                if len(password) < 6:
-                    messages.error(request, 'Password too short')
-                    return render(request, 'authentication/register.html', context)
+        return context
 
-                user = User.objects.create_user(username=username, email=email)
-                user.set_password(password)
-                user.is_active = False
-                user.save()
-                current_site = get_current_site(request)
-                email_body = {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                }
-
-                link = reverse('activate', kwargs={
-                               'uidb64': email_body['uid'], 'token': email_body['token']})
-
-                email_subject = 'Activate your account'
-
-                activate_url = 'http://'+current_site.domain+link
-
-                email = EmailMessage(
-                    email_subject,
-                    'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
-                    'noreply@semycolon.com',
-                    [email],
-                )
-                #email.send(fail_silently=False)
-                EmailThread(email).start()
-                messages.success(request, 'Account successfully created')
-                return render(request, 'authentication/register.html')
-
-        return render(request, 'authentication/register.html')
 
 
 class VerificationView(View):
@@ -137,34 +159,59 @@ class VerificationView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'authentication/login.html')
+        return render(request, 'authentication/login.html', self.get_context(request))
 
     def post(self, request):
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        print('Nombre de Usuario: '+username)
-        print('Constraseña de Usuario: '+ password)
+        # Actualizar el idioma seleccionado en la sesión
+        request.session['language'] = request.POST.get('language', 'English')
+
+        context = self.get_context(request)
+
+
         if username and password:
             user = auth.authenticate(username=username, password=password)            
-            print('User Value '+str(user))
-
             if user:
                 if user.is_active:
                     auth.login(request, user)
                     messages.success(request, 'Welcome, ' +
-                                     user.username+' you are now logged in')
+                                    user.username+' you are now logged in')
                     return redirect('home')
                 messages.error(
                     request, 'Account is not active,please check your email')
                 return render(request, 'authentication/login.html')
             messages.error(
                 request, 'Invalid credentials,try again')
-            return render(request, 'authentication/login.html')
+            return render(request, 'authentication/login.html',context)
+        else:
+            messages.error(request, 'Please fill all fields')
+            return render(request, 'authentication/login.html',context)
 
-        messages.error(
-            request, 'Please fill all fields')
-        return render(request, 'authentication/login.html')
+    def get_context(self, request):
+        with open('language.json', 'r', encoding='utf-8') as file:
+            language_data = json.load(file)
+
+        # Determinar el idioma seleccionado por el usuario
+        selected_language = request.session.get('language', 'English')
+        
+        # Obtener los datos del idioma seleccionado para la página de inicio
+        register_header = language_data[selected_language]['register']['menu_header']
+        register_text = language_data[selected_language]['register']['text']
+        register_button_guest = language_data[selected_language]['register']['button_guest']
+        register_button_authenticated = language_data[selected_language]['register']['button_authenticated']
+
+        # Crear el contexto con los datos cargados
+        context = {
+            'menu_header': register_header,
+            'text': register_text,
+            'button_guest': register_button_guest,
+            'button_authenticated': register_button_authenticated,
+            'fieldValues': request.POST
+        }
+
+        return context
 
 
 class LogoutView(View):
@@ -176,21 +223,26 @@ class LogoutView(View):
 
 class RequestPasswordResetEmail(View):
     def get(self, request):
-        return render(request,'authentication/reset-password.html')
-    
+        return render(request, 'authentication/reset-password.html', self.get_context(request))
+
     def post(self, request):
+        email = request.POST.get('email')
 
-        email=request.POST['email']
+        # Actualizar el idioma seleccionado en la sesión
+        request.session['language'] = request.POST.get('language', 'English')
 
-        context={
-            'values':request.POST
-        }
-        if not validate_email(email):
-            messages.error(request,'Please supply a valid email')
-            return render(request,'authentication/reset-password.html',context)
+        context = self.get_context(request)
+
+        if email is not None:
+            if not validate_email(email):
+                messages.error(request,'Please supply a valid email')
+                return render(request,'authentication/reset-password.html',context)
+        else:
+            # Manejar el caso cuando email es None
+            messages.error(request, 'El campo de correo electrónico es obligatorio.')
+            return render(request, 'authentication/reset-password.html', context)
 
         current_site = get_current_site(request)
-        #user=request.objects.filter(email=email)
         user=User.objects.filter(email=email)
 
         if user.exists():
@@ -214,13 +266,35 @@ class RequestPasswordResetEmail(View):
                 'noreply@semycolon.com',
                 [email],
             )
-            #email.send(fail_silently=False)
             EmailThread(email).start()
-
-
-        messages.success(request,'We have sent you an email to reset your password')
+            messages.success(request,'We have sent you an email to reset your password')
 
         return render(request,'authentication/reset-password.html',context)
+
+    def get_context(self, request):
+        with open('language.json', 'r', encoding='utf-8') as file:
+            language_data = json.load(file)
+
+        # Determinar el idioma seleccionado por el usuario
+        selected_language = request.session.get('language', 'English')
+        
+        # Obtener los datos del idioma seleccionado para la página de inicio
+        register_header = language_data[selected_language]['register']['menu_header']
+        register_text = language_data[selected_language]['register']['text']
+        register_button_guest = language_data[selected_language]['register']['button_guest']
+        register_button_authenticated = language_data[selected_language]['register']['button_authenticated']
+
+        # Crear el contexto con los datos cargados
+        context = {
+            'menu_header': register_header,
+            'text': register_text,
+            'button_guest': register_button_guest,
+            'button_authenticated': register_button_authenticated,
+            'fieldValues': request.POST
+        }
+
+        return context
+
 
         
 class CompletePasswordReset(View):

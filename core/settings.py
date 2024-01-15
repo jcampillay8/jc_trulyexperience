@@ -16,9 +16,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
+#DEBUG=False
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOST_DEV')
-
+#ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -36,6 +37,7 @@ PROJECT_APPS = [
     'apps.home',
     'apps.Professional_Studies',
     'apps.contact',
+    'apps.Error_Handler',
     'apps.blog',
 ]
 
@@ -51,6 +53,10 @@ THIRD_PARTY_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
+
+# Custom error handling
+HANDLER404 = 'apps.Error_Handler.views.Error404View'
+HANDLER500 = 'apps.Error_Handler.views.Error505View'
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -171,6 +177,8 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 

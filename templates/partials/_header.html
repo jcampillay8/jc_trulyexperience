@@ -1,5 +1,22 @@
 {% load static %}
+<style>
+  .navbar-container > div {
+  margin-bottom: 10px; /* Espacio entre los elementos */
+}
 
+.language-selection {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 970px) {
+  .navbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
 <header id="masthead">
     <div class="inner-wrap">
    
@@ -11,7 +28,10 @@
           <div class="navbar-user">
             <span class="username">{{ request.user.username }}</span>
             <small class="user-email">({{ request.user.email }})</small>
+            <div class="language-selection">
             {% include 'partials/_choose_language.html' %}
+          </div>
+          <div class="logout-button">
 
             <form action="{% url 'logout' %}" method="POST" class="logout-form">
               
@@ -20,6 +40,7 @@
                 <i class="fas icon fa-sign-out-alt"></i> Logout
               </button>
             </form>
+          </div>
           </div>
         </div>
       </nav>

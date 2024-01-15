@@ -8,6 +8,7 @@
   /* Changing background color */
   body {
     background: var(--bg-color) !important;
+    
   }
   
   /* Changing link color */
@@ -15,6 +16,7 @@
     color: var(--white-color);
   }
   
+
   
   #skills i {
     height: 100px;
@@ -67,10 +69,10 @@
   
   /* Contact section background image */
   #contact {
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
     background-position: center;
-    background-image: url("../images/contact-bg.jpeg");
+    background-image: url("/static/img/home/split_keyboard.jpg");
   }
   
   @media screen and (max-width: 990px) {
@@ -85,4 +87,11 @@
       width: 100% !important;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    #skills .row {
+      flex-direction: column;
+    }
+  }
+  
   

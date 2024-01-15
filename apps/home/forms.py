@@ -7,14 +7,14 @@ class ContactForm(forms.Form):
         message="El número de teléfono debe tener el formato: '+999999999'. Se permiten hasta 15 dígitos."
     )
     name = forms.CharField(label="Nombre", required=True, widget=forms.TextInput(
-        attrs={'class':'form-control', 'placeholder':'Escribe tu nombre'}
+        attrs={'class':'form-control', 'id':'floatingInput', 'placeholder':'Enter Name*'}
     ), min_length=3, max_length=100)
     email = forms.EmailField(label="Email", required=True, widget=forms.EmailInput(
-        attrs={'class':'form-control', 'placeholder':'Escribe tu email'}
+        attrs={'class':'form-control', 'id':'floatingEmail', 'placeholder':'Enter Email*'}
     ), min_length=3, max_length=100)
     phone = forms.CharField(validators=[phone_regex], label="Phone", required=True, widget=forms.TextInput(
-        attrs={'class':'form-control', 'placeholder':'Escribe tu telefono'}
+        attrs={'class':'form-control', 'id':'floatingPassword', 'placeholder':'Enter Phone*'}
     ), min_length=3, max_length=100)
     content = forms.CharField(label="Contenido", required=True, widget=forms.Textarea(
-        attrs={'class':'form-control', 'rows': 3, 'placeholder':'Escribe tu mensaje'}
+        attrs={'class':'form-control', 'rows': 3, 'id':'floatingMessage', 'placeholder':'Enter Message*', 'style':'height: 205px'}
     ), min_length=10, max_length=1000)
