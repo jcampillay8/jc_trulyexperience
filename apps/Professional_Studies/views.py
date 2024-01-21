@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.views.generic import (View, TemplateView)
 from .models import Professional_Studies
 from .forms import ProfessionalStudiesForm
+from apps.utils import get_context
 
 def professional_studies(request):
     levels = request.GET.getlist('levels')  # Esto obtendrá una lista de los niveles seleccionados
@@ -38,7 +39,7 @@ def professional_studies(request):
 
         professional_studies_translated.append(context)
 
-    return render(request, "Professional_Studies/professional_studies.html", {'professional_studies': professional_studies_translated, 'selected_levels': levels, 'current_page':'professional_studies'})
+    return render(request, "Professional_Studies/professional_studies.html", {'professional_studies': professional_studies_translated, 'selected_levels': levels, 'current_page':'professional_studies','selected_language':get_context(request)})
 
 
 
@@ -54,4 +55,4 @@ def add_professional_studies(request):
             messages.error(request, 'Carga Fallida')
     else:
         form = ProfessionalStudiesForm()
-    return render(request, 'Professional_Studies/add_professional_studies.html', {'form': form,'current_page':'professional_studies'})
+    return render(request, 'Professional_Studies/add_professional_studies.html', {'form': form,'current_page':'professional_studies','selected_language':get_context(request)})

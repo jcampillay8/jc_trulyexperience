@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.core.mail import EmailMessage
 from .forms import ContactForm
 from django.views.generic import (View, TemplateView)
+from apps.utils import get_context
 import traceback
 
 
@@ -34,4 +35,4 @@ def contact(request):
                 print(traceback.format_exc())
                 return redirect(reverse('contact')+"?fail")
     
-    return render(request, "contact/contact.html",{'form':contact_form,'current_page': 'contact'})
+    return render(request, "contact/contact.html",{'form':contact_form,'current_page': 'contact','selected_language':get_context(request)})
