@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import json
 import environ
 
 env = environ.Env()
@@ -50,6 +51,7 @@ THIRD_PARTY_APPS = [
     'guest_user',
     'six',
     'froala_editor',
+    'widget_tweaks',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -75,6 +77,8 @@ CKEDITOR_UPLOAD_PATH = "/media/"
 
 SESSION_SAVE_EVERY_REQUEST = True
 
+with open('language.json', 'r', encoding='utf-8') as file:
+    LANGUAGE_DATA = json.load(file)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,8 +89,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
-  # 'guest_user.middleware.GuestUserMiddleware',
+    'core.languagemiddleware.LanguageMiddleware',
 ]
+
 
 ROOT_URLCONF = 'core.urls'
 

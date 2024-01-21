@@ -1,4 +1,4 @@
-const typewriterText = ["Cover your page.", "Create your story.", "Design your space."];
+const typewriterText = ["A Developer", "An Engineer", "A Gentleman"];
 let textPosition = 0;
 let index = 0;
 

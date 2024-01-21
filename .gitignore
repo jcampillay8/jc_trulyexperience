@@ -87,6 +87,9 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
+nota.md 
+notas.md
+
 # celery beat schedule file
 celerybeat-schedule
 

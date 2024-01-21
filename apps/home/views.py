@@ -11,6 +11,7 @@ from django.views.generic import (View, TemplateView)
 #from apps.contact.forms import ContactForm
 from .forms import ContactForm
 import traceback
+from apps.utils import get_context
 
 
 class GuestUser:
@@ -40,18 +41,25 @@ def guest_login(request):
 
 @login_or_guest_required
 def home(request):
+
+    contact_form = ContactForm(request.POST or None)
+    
+    request.session['language'] = request.POST.get('language', 'English')
+    print(type(get_context(request)))
+
     context = {
         'current_page': 'welcome',  # Cambia esto por el nombre de tu página
-        # ... el resto de tu contexto ...
+        'form':contact_form,
+        'selected_language':get_context(request),
     }
-    print('Pase por Home ')
     # Si el usuario no está autenticado o no es un invitado, redirigir a 'welcome'
     if not request.user.is_authenticated and not request.user.is_guest:
-        return redirect('welcome')
-    print('Nombre Usuario: '+ str(request.user))
-    if request.method == 'POST':
-        request.session['language'] = request.POST.get('language', 'English')
-    return render(request, 'home/home.html',context)
+
+        return redirect('welcome',{ 'current_page': 'welcome','form':contact_form, 'selected_language':get_context(request) })
+    # if request.method == 'POST':
+    #     request.session['language'] = request.POST.get('language', 'English')
+
+    return render(request, 'home/home.html',{ 'current_page': 'welcome','form':contact_form, 'selected_language':get_context(request) })
 
 
 def welcome(request):
@@ -60,36 +68,58 @@ def welcome(request):
     # Si se envía una solicitud POST, actualizar el idioma en la sesión
     if request.method == 'POST':
         request.session['language'] = request.POST.get('language', 'English')
-    
-    # Cargar el archivo JSON con la configuración de idioma
-    with open('language.json', 'r', encoding='utf-8') as file:
-        language_data = json.load(file)
+
+    # Obtener los datos del idioma de la solicitud
+    language_data = request.language_data
     
     # Determinar el idioma seleccionado por el usuario
     selected_language = request.session.get('language', 'English')
     
-    # Obtener los datos del idioma seleccionado para la página de inicio
-    menu_header = language_data[selected_language]['home']['menu_header']
-    home_text = language_data[selected_language]['home']['text']
-    home_button_guest = language_data[selected_language]['home']['button_guest']
-    home_button_authenticated = language_data[selected_language]['home']['button_authenticated']
+    # Obtener todos los datos del idioma seleccionado
+    selected_language_data = language_data[selected_language]
 
     # Crear el contexto con los datos cargados
     context = {
-        'menu_header': menu_header,
-        'text': home_text,
-        'button_guest': home_button_guest,
-        'button_authenticated':home_button_authenticated,
+        'selected_language': selected_language_data,
     }
     return render(request, 'partials/_welcome_content.html', context)
 
 
-def contact_home(request):
+# def welcome(request):
+#     if request.user.is_authenticated and not request.session.get('is_guest', False):
+#         return redirect('home')
+#     # Si se envía una solicitud POST, actualizar el idioma en la sesión
+#     if request.method == 'POST':
+#         request.session['language'] = request.POST.get('language', 'English')
+    
+#     # Cargar el archivo JSON con la configuración de idioma
+#     with open('language.json', 'r', encoding='utf-8') as file:
+#         language_data = json.load(file)
+    
+#     # Determinar el idioma seleccionado por el usuario
+#     selected_language = request.session.get('language', 'English')
+    
+    
+#     # Obtener los datos del idioma seleccionado para la página de inicio
+#     menu_header = language_data[selected_language]['home']['menu_header']
+#     home_text = language_data[selected_language]['home']['text']
+#     home_button_guest = language_data[selected_language]['home']['button_guest']
+#     home_button_authenticated = language_data[selected_language]['home']['button_authenticated']
 
-    contact_form = ContactForm()
+#     # Crear el contexto con los datos cargados
+#     context = {
+#         'menu_header': menu_header,
+#         'text': home_text,
+#         'button_guest': home_button_guest,
+#         'button_authenticated':home_button_authenticated,
+#     }
+#     return render(request, 'partials/_welcome_content.html', context)
+
+
+def contact_home(request):
+    contact_form = ContactForm(request.POST or None)
 
     if request.method == "POST":
-        contact_form = ContactForm(data=request.POST)
         if contact_form.is_valid():
             name = request.POST.get('name', '')
             email = request.POST.get('email', '')
@@ -112,8 +142,9 @@ def contact_home(request):
             except Exception as e:
                 print(traceback.format_exc())
                 return redirect(reverse('contact_home')+"?fail")
-    
-    return render(request, "home/home.html",{'form':contact_form,'current_page': 'home'})
+
+    return render(request, "home/home.html",{'form':contact_form,'current_page': 'welcome'})
+
 
 
 

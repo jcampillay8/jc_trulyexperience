@@ -9,7 +9,7 @@
         <div class="card">
 <div class="card-body">
                             <img src="{% static 'img/signature.png' %}" id="image" style="margin: 0px 0%;" height="90" alt="Card image cap">
-                            <p class="text-center"><b>Login to your Account</b></p>
+                            <p class="text-center"><b>{{ selected_language.welcome.login.title }}</b></p>
                             <form class="mt-2" autocomplete="off" action="{%url 'login'%}"  method="POST" autocomplete="off">
               {% csrf_token%}
 
@@ -21,7 +21,7 @@
                   placeholder="Username or Email"
                  class="form-control form-control-sm"
                   required
-                  value="{{ values.username }}"
+                  value="{% if values.username %}{{ values.username }}{% else %}{{ values.email }}{% endif %}"
                 />
               </div>
               <div class="form-group">
@@ -40,7 +40,7 @@
               </div>
               <input
                 type="submit"
-                value="Login"
+                value="{{ selected_language.welcome.login.boton_login }}"
                 class="btn btn-block btn-primary submit-btn"
               />
                  <div class="lower my-3 pl-3 pr-3">
@@ -55,9 +55,9 @@
                                             <hr class="mr-1">
                                         </div>
                                     </div>
-                                    <a href="{% url 'register'%}" class="btn btn-block btn-sm">Create an Account</a>
+                                    <a href="{% url 'register'%}" class="btn btn-block btn-sm">{{ selected_language.welcome.login.boton_create_account }}</a>
 
-                                    <a href="{% url 'request-password' %}" class="btn btn-block btn-sm">Forgot Password</a>
+                                    <a href="{% url 'request-password' %}" class="btn btn-block btn-sm">{{ selected_language.welcome.login.boton_forgot_password }}</a>
 
                                 </div>
             </form>

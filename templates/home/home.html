@@ -40,7 +40,7 @@
 <section class="container py-5" id="skills">
   <div class="row mt-4 py-3">
     <div class="col-12 d-flex flex-column text-center justify-content-center">
-      <h2>SKILLS</h2>
+      <h2>{{ selected_language.selected_language.home.skills }}</h2>
       <h5 class="text-secondary fw-normal py-2 fst-italic">Continuously improving my skills and knowledge in the field.</h5>
     </div>
   </div>
@@ -355,31 +355,30 @@
           <div class="row d-flex justify-content-center">
             
             <div class="col-lg-6">
-              <div class="form-control mb-3" style="height: 58px;" >
-                {{ form.name }}
-                <label for="{{ form.name.id_for_label }}">Enter Name*</label>
+              <div class="form mb-3" style="height: 58px;" >
+                {{ form.name }}  
+                
               </div>
-              <div class="form-control mb-3" style="height: 58px;">
-                {{ form.email }}
-                <label for="{{ form.email.id_for_label }}">Enter Email*</label>
+              <div class="form mb-3" style="height: 58px;">
+                {{ form.email }}  
+                
               </div>
-              <div class="form-control mb-3" style="height: 58px;">
-                {{ form.phone }}
-                <label for="{{ form.phone.id_for_label }}">Enter Phone*</label>
+              <div class="form mb-3" style="height: 58px;">
+                {{ form.phone }}  
+                
               </div>
             </div>
             
-              <div class="form-control col-lg-6" style="height: 205px">
+              <div class="form col-lg-6" style="height: 205px">
+                
                 {{ form.content }}
-                <label for="{{ form.content.id_for_label }}" class="px-4">Enter Message*</label>
               </div>
-            
-              
+                
             <div class="col-12 mt-5 d-flex justify-content-center">
               <button type="submit" class="btn btn-lg btn-outline-light">SEND MESSAGE</button>
             </div>
           </div>
-
+      </form>
       </div>
     </div>
    </div>
@@ -397,3 +396,4 @@
 
       {%endblock%}
 
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingMessage" style="height: 205px" required></textarea>

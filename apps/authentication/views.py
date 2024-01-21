@@ -17,6 +17,7 @@ from .utils import account_activation_token
 from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from apps.utils import get_context
 
 import threading
 # Create your views here.
@@ -56,7 +57,7 @@ class UsernameValidationView(View):
 
 class RegistrationView(View):
     def get(self, request):
-        return render(request, 'authentication/register.html', self.get_context(request))
+        return render(request, 'authentication/register.html', get_context(request))
 
     def post(self, request):
         username = request.POST.get('username')
@@ -66,7 +67,7 @@ class RegistrationView(View):
         # Actualizar el idioma seleccionado en la sesión
         request.session['language'] = request.POST.get('language', 'English')
 
-        context = self.get_context(request)
+        context = get_context(request)
 
         if username and email and password:
             if not User.objects.filter(username=username).exists():
@@ -108,30 +109,22 @@ class RegistrationView(View):
             return render(request, 'authentication/register.html',context)
 
 
-    def get_context(self, request):
-        with open('language.json', 'r', encoding='utf-8') as file:
-            language_data = json.load(file)
+    # def get_context(self, request):
+    #     # Obtener los datos del idioma de la solicitud
+    #     language_data = request.language_data
 
-        # Determinar el idioma seleccionado por el usuario
-        selected_language = request.session.get('language', 'English')
-        
-        # Obtener los datos del idioma seleccionado para la página de inicio
-        register_header = language_data[selected_language]['register']['menu_header']
-        register_text = language_data[selected_language]['register']['text']
-        register_button_guest = language_data[selected_language]['register']['button_guest']
-        register_button_authenticated = language_data[selected_language]['register']['button_authenticated']
+    #     # Determinar el idioma seleccionado por el usuario
+    #     selected_language = request.session.get('language', 'English')
 
-        # Crear el contexto con los datos cargados
-        context = {
-            'menu_header': register_header,
-            'text': register_text,
-            'button_guest': register_button_guest,
-            'button_authenticated': register_button_authenticated,
-            'fieldValues': request.POST
-        }
+    #     # Obtener todos los datos del idioma seleccionado
+    #     selected_language_data = language_data[selected_language]
 
-        return context
+    #     context = {
+    #         'selected_language': selected_language_data,
+    #         'fieldValues': request.POST,
+    #     }
 
+    #     return context
 
 
 class VerificationView(View):
@@ -159,59 +152,107 @@ class VerificationView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'authentication/login.html', self.get_context(request))
+        return render(request, 'authentication/login.html', get_context(request))
 
     def post(self, request):
-        username = request.POST.get('username')
+        username_or_email = request.POST.get('username')
         password = request.POST.get('password')
 
         # Actualizar el idioma seleccionado en la sesión
         request.session['language'] = request.POST.get('language', 'English')
 
-        context = self.get_context(request)
+        context = get_context(request)
+        
 
+        if username_or_email and password:
+            # Intenta autenticar por nombre de usuario
+            user = auth.authenticate(username=username_or_email, password=password)
+            
+            # Si la autenticación por nombre de usuario falla, intenta por correo electrónico
+            if user is None:
+                try:
+                    user_obj = User.objects.get(email=username_or_email)
+                    user = auth.authenticate(username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    user = None
 
-        if username and password:
-            user = auth.authenticate(username=username, password=password)            
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, 'Welcome, ' +
-                                    user.username+' you are now logged in')
+                    messages.success(request, 'Welcome, ' + user.username + ' you are now logged in')
                     return redirect('home')
-                messages.error(
-                    request, 'Account is not active,please check your email')
+                messages.error(request, 'Account is not active, please check your email')
                 return render(request, 'authentication/login.html')
-            messages.error(
-                request, 'Invalid credentials,try again')
-            return render(request, 'authentication/login.html',context)
+            messages.error(request, 'Invalid credentials, try again')
+            return render(request, 'authentication/login.html', context)
         else:
             messages.error(request, 'Please fill all fields')
-            return render(request, 'authentication/login.html',context)
+            return render(request, 'authentication/login.html', context)
 
-    def get_context(self, request):
-        with open('language.json', 'r', encoding='utf-8') as file:
-            language_data = json.load(file)
+    # def get_context(self, request):
+    #     # Obtener los datos del idioma de la solicitud
+    #     language_data = request.language_data
 
-        # Determinar el idioma seleccionado por el usuario
-        selected_language = request.session.get('language', 'English')
-        
-        # Obtener los datos del idioma seleccionado para la página de inicio
-        register_header = language_data[selected_language]['register']['menu_header']
-        register_text = language_data[selected_language]['register']['text']
-        register_button_guest = language_data[selected_language]['register']['button_guest']
-        register_button_authenticated = language_data[selected_language]['register']['button_authenticated']
+    #     # Determinar el idioma seleccionado por el usuario
+    #     selected_language = request.session.get('language', 'English')
 
-        # Crear el contexto con los datos cargados
-        context = {
-            'menu_header': register_header,
-            'text': register_text,
-            'button_guest': register_button_guest,
-            'button_authenticated': register_button_authenticated,
-            'fieldValues': request.POST
-        }
+    #     # Obtener todos los datos del idioma seleccionado
+    #     selected_language_data = language_data[selected_language]
 
-        return context
+    #     context = {
+    #         'selected_language': selected_language_data,
+    #         'fieldValues': request.POST,
+    #     }
+
+    #     return context
+
+# class LoginView(View):
+#     def get(self, request):
+#         return render(request, 'authentication/login.html', self.get_context(request))
+
+#     def post(self, request):
+#         username_or_email = request.POST.get('username')
+#         password = request.POST.get('password')
+
+#         # Actualizar el idioma seleccionado en la sesión
+#         request.session['language'] = request.POST.get('language', 'English')
+
+#         context = self.get_context(request)
+
+#         if username_or_email and password:
+#             # Intenta autenticar por nombre de usuario
+#             user = auth.authenticate(username=username_or_email, password=password)
+            
+#             # Si la autenticación por nombre de usuario falla, intenta por correo electrónico
+#             if user is None:
+#                 try:
+#                     user_obj = User.objects.get(email=username_or_email)
+#                     user = auth.authenticate(username=user_obj.username, password=password)
+#                 except User.DoesNotExist:
+#                     user = None
+
+#             if user:
+#                 if user.is_active:
+#                     auth.login(request, user)
+#                     messages.success(request, 'Welcome, ' + user.username + ' you are now logged in')
+#                     return redirect('home')
+#                 messages.error(request, 'Account is not active, please check your email')
+#                 return render(request, 'authentication/login.html')
+#             messages.error(request, 'Invalid credentials, try again')
+#             return render(request, 'authentication/login.html', context)
+#         else:
+#             messages.error(request, 'Please fill all fields')
+#             return render(request, 'authentication/login.html', context)
+
+#     def get_context(self, request):
+
+#         context = {
+#             'selected_language': request.language_data,
+#             'fieldValues': request.POST,
+#         }
+
+#         return context
+
 
 
 class LogoutView(View):
@@ -223,7 +264,7 @@ class LogoutView(View):
 
 class RequestPasswordResetEmail(View):
     def get(self, request):
-        return render(request, 'authentication/reset-password.html', self.get_context(request))
+        return render(request, 'authentication/reset-password.html', get_context(request))
 
     def post(self, request):
         email = request.POST.get('email')
@@ -231,7 +272,7 @@ class RequestPasswordResetEmail(View):
         # Actualizar el idioma seleccionado en la sesión
         request.session['language'] = request.POST.get('language', 'English')
 
-        context = self.get_context(request)
+        context = get_context(request)
 
         if email is not None:
             if not validate_email(email):
@@ -271,29 +312,14 @@ class RequestPasswordResetEmail(View):
 
         return render(request,'authentication/reset-password.html',context)
 
-    def get_context(self, request):
-        with open('language.json', 'r', encoding='utf-8') as file:
-            language_data = json.load(file)
+    # def get_context(self, request):
 
-        # Determinar el idioma seleccionado por el usuario
-        selected_language = request.session.get('language', 'English')
-        
-        # Obtener los datos del idioma seleccionado para la página de inicio
-        register_header = language_data[selected_language]['register']['menu_header']
-        register_text = language_data[selected_language]['register']['text']
-        register_button_guest = language_data[selected_language]['register']['button_guest']
-        register_button_authenticated = language_data[selected_language]['register']['button_authenticated']
+    #     context = {
+    #         'selected_language': request.language_data
+    #         #'fieldValues': request.POST,
+    #     }
 
-        # Crear el contexto con los datos cargados
-        context = {
-            'menu_header': register_header,
-            'text': register_text,
-            'button_guest': register_button_guest,
-            'button_authenticated': register_button_authenticated,
-            'fieldValues': request.POST
-        }
-
-        return context
+    #     return context
 
 
         

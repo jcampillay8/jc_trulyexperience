@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler404
-from apps.home.views import Error404View, Error505View
+from apps.Error_Handler.views import Error404View, Error505View
 
 urlpatterns = [
     path("", include("apps.home.urls")),

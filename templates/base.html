@@ -1,5 +1,6 @@
 
 {% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -27,18 +28,28 @@
   </head>
 
   <body >
-    <header class="d-flex h-20 flex-column">
+    <!-- <header class="d-flex h-20 flex-column"> -->
       <div>
+    
         {% include 'partials/_header.html' %}
         {% include 'partials/_menu_header.html' %}
         {% include 'partials/_sidebarmenu.html' %}
       </div>    
-      <header class="d-flex h-20 flex-column" style="margin-bottom: 0; padding-bottom: 0">
+      <!-- <header class="d-flex h-20 flex-column" style="margin-bottom: 0; padding-bottom: 0">
 
         
-      </header>
-      {% block content %} {% endblock %}
+      </header> -->
+      
 
+      {% block content %}
+      
+      {% endblock %}
+
+      
+
+
+
+    
       <!-- Footer -->
       {% include 'partials/_footer_home.html' %}
     
@@ -68,5 +79,6 @@
       const savedLanguage = '{{ request.session.language|default:"English" }}';
       document.getElementById('language' + savedLanguage).checked = true;
     </script>
+    
   </body>
 </html>

@@ -22,12 +22,12 @@
         </a>
         </div>
         <div class="col-md-6 text-md-right text-right">
-            <nav class="nav nav-masthead justify-content-end">
-                <a class="nav-link active" href="/authentication/login">{{ menu_header.one }}</a>
-                <a class="nav-link" href="/authentication/register">{{ menu_header.two }}</a>
-                <a class="nav-link" href="/authentication/request-password">{{ menu_header.three }}</a>
-            </nav>
-        </div>
+          <nav class="nav nav-masthead justify-content-end">
+              <a class="nav-link active" id="login-link" href="/authentication/login">{{ selected_language.welcome.header_welcome.login }}</a>
+              <a class="nav-link active" id="register-link" href="/authentication/register">{{ selected_language.welcome.header_welcome.register }}</a>
+              <a class="nav-link active" id="forgot-password-link" href="/authentication/request-password">{{ selected_language.welcome.header_welcome.forgot_password }}</a>
+          </nav>
+      </div>      
         <div class="col-md-2 text-md-right text-center">
           {% include 'partials/_choose_language.html' %}
 
@@ -56,9 +56,21 @@
       <script src="static/js/typewriter.js"></script>
       <script src="static/js/choose_language.js"></script>
       <script>
-        // Seleccionar el idioma guardado en la sesión, si existe
-        const savedLanguage = '{{ request.session.language|default:"English" }}';
-        document.getElementById('language' + savedLanguage).checked = true;
+          // Seleccionar el idioma guardado en la sesión, si existe
+          const savedLanguage = '{{ request.session.language|default:"English" }}';
+                  document.getElementById('language' + savedLanguage).checked = true;
+                </script>
+                <script>
+                  window.onload = function() {
+              var path = window.location.pathname;
+              if (path.includes('/authentication/login')) {
+                  document.getElementById('login-link').style.color = '#ff561e';
+              } else if (path.includes('/authentication/register')) {
+                  document.getElementById('register-link').style.color = '#ff561e';
+              } else if (path.includes('/authentication/request-password')) {
+                  document.getElementById('forgot-password-link').style.color = '#ff561e';
+              }
+          };
       </script>
 
 

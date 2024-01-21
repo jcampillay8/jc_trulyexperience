@@ -1,5 +1,6 @@
-{% extends 'welcome.html' %} {% load static%} {% block title%} | Register Account
-{%endblock%} {%block content%}
+{% extends 'welcome.html' %} {% load static%} 
+{% block title%} | Register Account {%endblock%} 
+{%block content%}
 
 <section class="register-section h-100" id="register">
   <div class="container">
@@ -11,7 +12,7 @@
 
   <div class="card-body">
                             <img src="{% static 'img/signature.png' %}" id="image" style="margin: 0px 0%;" height="90" alt="Card image cap">
-                            <p class="text-center"><b>Register for a free account</b></p>
+                            <p class="text-center"><b>{{ selected_language.welcome.register.title }}</b></p>
                             <form class="mt-2" autocomplete="off" action="{%url 'register'%}" method="POST" autocomplete="off">
               {% csrf_token%}
                 <!-- Alerts -->
@@ -71,11 +72,11 @@
                 >
                 </input>
 
-                <small class="float-right py-2  show-toggler">SHOW</small>
+                <small class="float-right py-2  show-toggler">{{ selected_language.welcome.register.show }}</small>
               </div>
               <input
                 type="submit"
-                value="Register"
+                value="{{ selected_language.welcome.register.boton_register }}"
                 class="btn btn-primary submit-btn btn-block btn-sm btn-block"
               />
                  <div class="lower my-3 pl-3 pr-3">
@@ -90,9 +91,9 @@
                                             <hr class="mr-1">
                                         </div>
                                     </div>
-                                    <a href="{% url 'request-password'%}" class="btn btn-block btn-sm">Reset Password</a>
+                                    <a href="{% url 'request-password'%}" class="btn btn-block btn-sm">{{ selected_language.welcome.register.reset_password }}</a>
 
-                                    <a href="{% url 'login' %}" class="btn btn-block btn-sm">Back to Login</a>
+                                    <a href="{% url 'login' %}" class="btn btn-block btn-sm">{{ selected_language.welcome.register.back_login }}</a>
 
                                 </div>
             </form>

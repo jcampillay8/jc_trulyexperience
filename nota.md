@@ -28,3 +28,6 @@ After all I want to become a citizen of the world and travel around the world
 Now I'm going to prepare to do some exercise before going swimming in the pool. I won't be attentive to my phone, but if you write something, I'll respond to you later
 
 hahahha you make me blush, I mean, you don't have to do it, I really appreciate your morning greetings, you make the day nicer, but you are getting me used to it, and the last thing I want is for you to feel obligated
+
+
+

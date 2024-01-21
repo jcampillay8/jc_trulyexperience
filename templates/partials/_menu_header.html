@@ -1,9 +1,11 @@
 {% load static %}
+
 <style>
 .menu-link.active {
   color: #ff561e !important;
   border-bottom: 2px solid #ff561e !important;
 }
+
 .nav-links .drop-menu{
   width: 300px; /* Ajusta este valor según tus necesidades */
 }
@@ -12,30 +14,47 @@
   <nav class="navbar_menu">
     <div class="wrapper">
       <div class="logo"><a href="#">Jaime Campillay</a></div>
+      
 
       <ul id="link_menu" class="nav-links" >
         <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
         <li>
-          <a class="desktop-item menu-link {% if current_page == 'welcome' %}active{% endif %}" href="{% url 'welcome' %}">Home</a>
+          <!-- <a class="desktop-item menu-link {% if current_page == 'welcome' %}active{% endif %}" href="{% url 'welcome' %}">{{ selected_language.selected_language.menu_home.home }}</a> -->
+          <a class="desktop-item menu-link {% if current_page == 'welcome' %}active{% endif %}" href="{% url 'welcome' %}">
+            {% if current_page == 'welcome' %}
+                {{ selected_language.selected_language.menu_home.home }}
+            {% else %}
+                Home
+            {% endif %}
+        </a>
+        
           <input type="checkbox" id="showDrop">
           <label for="showDrop" class="mobile-item">Home</label>
           <ul class="drop-menu">
-          <li><a href="#">Skills</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Curriculum Vitae</a></li>
-          <li><a href="#">Contact</a></li>
+            <li><a href="#skills">{{ selected_language.selected_language.menu_home.Home_Dropdown.skills }}</a></li>
+            <li><a href="#portfolio">{{ selected_language.selected_language.menu_home.Home_Dropdown.portfolio }}</a></li>
+            <li><a href="#about">{{ selected_language.selected_language.menu_home.Home_Dropdown.about }}</a></li>
+            <li><a href="#cv">{{ selected_language.selected_language.menu_home.Home_Dropdown.cv }}</a></li>
+            <li><a href="#contact">{{ selected_language.selected_language.menu_home.Home_Dropdown.contact }}</a></li>
           </ul>
       </li>
       <li>
         <a class="desktop-item " href="#">About Me</a>
+        <!-- <a class="desktop-item " href="#">
+          {% if current_page == 'welcome' %}
+              { selected_language.selected_language.menu_home.home }}
+          {% else %}
+              Home
+          {% endif %}
+        </a> -->
         <input type="checkbox" id="showAboutMe">
         <label for="showAboutMe" class="mobile-item">About Me</label>
         <ul class="drop-menu">
-          <li><a href="#">¿Quién soy?</a></li>
-          <li><a href="#">¿Cuáles son mis intereses?</a></li>
-          <li><a href="#">¿Qué me interesa Aprender?</a></li>
-          <li><a href="#">¿Qué cosa sé ahora?</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.who_am_I }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_are_my_interest }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_do_I_want_to_learn }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_do_I_know_now }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_am_I_studying_now }}</a></li>
         </ul>
       </li>
       <li>
@@ -47,25 +66,25 @@
             <div class="row">
               <header>Personal Projects</header>
               <ul class="mega-links">
-                <li><a href="#">Personal Projects 1</a></li>
-                <li><a href="#">Personal Projects 2</a></li>
-                <li><a href="#">Personal Projects 3</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.one }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.three }}</a></li>
               </ul>
             </div>
             <div class="row">
               <header>Professional Projects</header>
               <ul class="mega-links">
-                <li><a href="#">Professional Projects 1</a></li>
-                <li><a href="#">Professional Projects 2</a></li>
-                <li><a href="#">Professional Projects 3</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.one }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.three }}</a></li>
               </ul>
             </div>
             <div class="row">
               <header>Work Experience</header>
               <ul class="mega-links">
-                <li><a href="#">Work Experience 1</a></li>
-                <li><a href="#">Work Experience 2</a></li>
-                <li><a href="#">Work Experience 3</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.one }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.three }}</a></li>
               </ul>
             </div>
           </div>
@@ -76,13 +95,19 @@
         <input type="checkbox" id="showEstudies">
         <label for="showEstudies" class="mobile-item">Estudies</label>
         <ul class="drop-menu">
-          <li><a href="#">Show All Studies</a></li>
-          <li><a href="#">Show Studies Level 1</a></li>
-          <li><a href="#">Show Studies Level 2</a></li>
-          <li><a href="#">Show Studies Level 3</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.one }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.two }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.three }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.four }}</a></li>
         </ul>
       </li>
-      <li><a class="desktop-item menu-link {% if current_page == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a></li>    
+      <li><a class="desktop-item menu-link {% if current_page == 'contact' %}active{% endif %}" href="{% url 'contact' %}">   
+        {% if current_page == 'contact' %}
+              Contact        
+          {% else %}
+              {{ selected_language.selected_language.menu_home.contact }}
+          {% endif %}
+        </a></li>    
       </ul>
       <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
         <span class="nav-line nav-line-1"></span>
