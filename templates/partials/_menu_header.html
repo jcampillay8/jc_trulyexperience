@@ -46,7 +46,8 @@
         </ul>
       </li>
       <li>
-        <a href="#" class="desktop-item ">Portfolio</a>
+        <!-- <a href="#" class="desktop-item ">Portfolio</a> -->
+        <a class="desktop-item menu-link {% if current_page == 'portfolio_home' %}active{% endif %}" href="{% url 'portfolio_home' %}">{{ selected_language.selected_language.menu_home.Portfolio }}</a>
         <input type="checkbox" id="showPortfolio">
         <label for="showPortfolio" class="mobile-item">Portfolio</label>
         <div class="mega-box">

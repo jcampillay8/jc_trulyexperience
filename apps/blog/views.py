@@ -7,7 +7,7 @@ from apps.utils import get_context
 
 def blog(request):
     context = {'blogs': BlogModel.objects.all(),'selected_language':get_context(request)}
-    return render(request, 'blog/blog.html', {'blogs': BlogModel.objects.all(),'selected_language':get_context(request)})
+    return render(request, 'blog/blog.html', {'blogs': BlogModel.objects.all(),'current_page': 'blog','selected_language':get_context(request)})
 
 
 def blog_detail(request, slug):
