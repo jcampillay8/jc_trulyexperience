@@ -13,6 +13,10 @@ urlpatterns = [
     path('contact/',include("apps.contact.urls")),
     path('blog/',include("apps.blog.urls")),
     path('portfolio/',include("apps.portfolio.urls")),
+    path('Quizzes/',include("apps.Quizzes.urls")),
+    path('django_plotly_dash/', include('django_plotly_dash.urls')),
+    #path('translation_manager/',include("apps.translation_manager.urls")),
+    path('Fintech_Data_Dashboard/',include("apps.Opportunity_Data_Journey.Fintech_Data_Dashboard.urls")),
     path('admin/', admin.site.urls),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

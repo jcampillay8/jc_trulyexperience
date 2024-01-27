@@ -81,6 +81,8 @@ nav .wrapper{
 .nav-links .mobile-item{
   display: none;
 }
+
+
 .nav-links .drop-menu{
   position: absolute;
   background: #242526;
@@ -114,6 +116,7 @@ nav .wrapper{
   opacity: 0;
   visibility: hidden;
 }
+
 .mega-box .content{
   background: #242526;
   padding: 25px 20px;
@@ -122,6 +125,15 @@ nav .wrapper{
   justify-content: space-between;
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
+.mega-box .content{
+  background: #242526;
+  padding: 25px 20px;
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
 .mega-box .content .row{
   width: calc(25% - 30px);
   line-height: 45px;

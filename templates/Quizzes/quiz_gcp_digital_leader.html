@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load plotly_dash %}
+{% block title %} Quiz - GCP Digital Leader {% endblock%}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <body>
+        <div class="{% plotly_class name="MyDashApp"%}">
+            {% plotly_app name="MyDashApp" ratio=1 username=username %}
+        </div>
+        <div id="answer"></div>
+    </body>
+    {% else %}
+    <h1>Necesita <a href="/login">Iniciar sesion</a> para crear un post</h1>
+    {% endif %}
+{% endblock %}

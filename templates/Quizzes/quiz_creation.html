@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} Post Page {% endblock%}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+    {% else %}
+        <h1>Necesita <a href="/login">Iniciar sesion</a> para crear un post</h1>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

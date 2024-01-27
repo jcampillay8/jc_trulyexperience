@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} Post Page {% endblock%}
+
+{% block content %}
+    <h1>Estás seguro de eliminar {{ post.titulo }} ?</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <a href="{% url 'quiz_post' post.id %}" class="btn btn-primary">Cancelar</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger">  
+    </form>
+{% endblock %}

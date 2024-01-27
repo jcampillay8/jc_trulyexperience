@@ -9,6 +9,11 @@
 .nav-links .drop-menu{
   width: 300px; /* Ajusta este valor según tus necesidades */
 }
+
+.new-dropdown .mega-box .content .row{
+  width: calc(50% - 30px); /* Ajusta el ancho de cada fila al 50% */
+  line-height: 45px;
+}
 </style>
 <body>
   <nav class="navbar_menu">
@@ -32,8 +37,8 @@
             <li><a href="{% url 'welcome' %}#contact">{{ selected_language.selected_language.menu_home.Home_Dropdown.contact }}</a></li>
         </ul>        
       </li>
-      <li>
-        <a class="desktop-item menu-link {% if current_page == 'blog' %}active{% endif %}" href="{% url 'blog' %}">{{ selected_language.selected_language.menu_home.About_Me }}</a>
+      <!-- <li> -->
+        <!-- <a class="desktop-item menu-link {% if current_page == 'blog' %}active{% endif %}" href="{% url 'blog' %}">{{ selected_language.selected_language.menu_home.About_Me }}</a>
         
         <input type="checkbox" id="showAboutMe">
         <label for="showAboutMe" class="mobile-item">About Me</label>
@@ -44,6 +49,35 @@
           <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_do_I_know_now }}</a></li>
           <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_am_I_studying_now }}</a></li>
         </ul>
+      </li> -->
+      <li class="new-dropdown">
+        <a class="desktop-item menu-link {% if current_page == 'blog' %}active{% endif %}" href="{% url 'blog' %}">{{ selected_language.selected_language.menu_home.About_Me }}</a>
+        <input type="checkbox" id="showAboutMe">
+        <label for="showAboutMe" class="mobile-item">About Me</label>
+        <div class="mega-box">
+          <div class="content">
+            <div class="row">
+              <header>My Profile</header>
+              <ul class="mega-links">
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.who_am_I }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_are_my_interest }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_do_I_want_to_learn }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_do_I_know_now }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_am_I_studying_now }}</a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <header><a class="desktop-item menu-link {% if current_page == 'professional_studies' %}active{% endif %}" href="{% url 'professional_studies' %}">{{ selected_language.selected_language.menu_home.Estudies }}</a></header>
+              <ul class="mega-links">
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.Estudies.one }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.Estudies.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.Estudies.three }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.Estudies.four }}</a></li>
+              </ul>
+            </div>
+ 
+          </div>
+        </div>
       </li>
       <li>
         <!-- <a href="#" class="desktop-item ">Portfolio</a> -->
@@ -80,18 +114,38 @@
         </div>
       </li>
       <li>
-        <a class="desktop-item menu-link {% if current_page == 'professional_studies' %}active{% endif %}" href="{% url 'professional_studies' %}">{{ selected_language.selected_language.menu_home.Estudies }}</a>
+        <a class="desktop-item menu-link {% if current_page == 'Quizzes' %}active{% endif %}" href="{% url 'quiz_index' %}">{{ selected_language.selected_language.menu_home.Quizzes }}</a>
         <!-- <a class="desktop-item menu-link {% if current_page == 'professional_studies' %}active{% endif %}" href="{% url 'professional_studies' %}" class="desktop-item ">Estudies</a> -->
         <input type="checkbox" id="showEstudies">
-        <label for="showEstudies" class="mobile-item">Estudies</label>
+        <label for="showEstudies" class="mobile-item">Quizzes</label>
         <ul class="drop-menu">
-          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.one }}</a></li>
-          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.two }}</a></li>
-          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.three }}</a></li>
-          <li><a href="#">{{ selected_language.selected_language.menu_home.Estudies_Dropdown.four }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Quizzes_Dropdown.one }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Quizzes_Dropdown.two }}</a></li>
         </ul>
       </li>
+
       <li><a class="desktop-item menu-link {% if current_page == 'contact' %}active{% endif %}" href="{% url 'contact' %}"> {{ selected_language.selected_language.menu_home.contact }} </a></li>    
+      <li>
+        <!-- <a class="desktop-item menu-link {% if current_page == 'my_website_detail' %}active{% endif %}" href="#">{{ selected_language.selected_language.menu_home.my_website_detail }}</a> -->
+        <a href="#" class="desktop-item ">{{ selected_language.selected_language.menu_home.My_Website_Detail }}</a>
+        <input type="checkbox" id="showEstudies">
+        <label for="showEstudies" class="mobile-item">Website_Detail</label>
+        <ul class="drop-menu">
+          <li><a href="#">{{ selected_language.selected_language.menu_home.My_Website_Detail_Dropdown.one }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.My_Website_Detail_Dropdown.two }}</a></li>
+        </ul>
+      </li>
+      <!-- <li> -->
+        <!-- <a class="desktop-item menu-link {% if current_page == 'my_website_detail' %}active{% endif %}" href="#">{{ selected_language.selected_language.menu_home.my_website_detail }}</a> -->
+        <!-- <a href="#" class="desktop-item ">{{ selected_language.selected_language.menu_home.Opportunity_Data_Journey }}</a>
+        <input type="checkbox" id="showEstudies">
+        <label for="showEstudies" class="mobile-item">Opportunity_Data_Journey</label>
+        <ul class="drop-menu">
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Opportunity_Data_Journey_Dropdown.one }}</a></li>
+          <li><a href="#">{{ selected_language.selected_language.menu_home.Opportunity_Data_Journey_Dropdown.two }}</a></li>
+        </ul>
+      </li> -->
+      
 
       </ul>
       <button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">

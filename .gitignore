@@ -128,3 +128,7 @@ dmypy.json
 
 # Ignorar language.json
 language.json
+
+datadump.json
+db.json
+quiz.json
