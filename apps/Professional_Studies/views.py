@@ -39,7 +39,7 @@ def professional_studies(request):
 
         professional_studies_translated.append(context)
 
-    return render(request, "Professional_Studies/professional_studies.html", {'professional_studies': professional_studies_translated, 'selected_levels': levels, 'current_page':'professional_studies','selected_language':get_context(request)})
+    return render(request, "Professional_Studies/professional_studies.html", {'professional_studies': professional_studies_translated, 'selected_levels': levels, 'current_page': 'professional_studies','selected_language':get_context(request)})
 
 
 

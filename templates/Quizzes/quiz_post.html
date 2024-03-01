@@ -2,29 +2,56 @@
 {% load static %}
 {% block title%} Post {% endblock %}
 
-{% block content %}
+{%block content%}
+<body>
+    
+      <!-- <section class="position-relative py-6"> -->
+        <section class="position-relative py-6">
+            <!-- <img class="bg-image" src="{% static 'img/Mont-Rainer.png' %}" alt="">
+          
+              <div class="container" >
+                <div class="row" >
+                  <div class="col-lg-6" style="display: gird; gap: 10px; padding-top: 1rem;padding-bottom: 1rem; background-color: orange; border: 3px solid #000;">
+                    <div class="bg-white rounded-lg shadow p-5"><strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">Reflection</strong>
+                      <h2 class="mb-3">Chief Seattle’s Letter 1855</h2>
+                      <p class="text-muted">Our connection with the Earth is deep and spiritual. Every corner of this earth and every living being are valuable and deserve our respect and care. Our actions should reflect our sacred duty to protect and love nature. By preserving the beauty and diversity of nature, we ensure that future generations can enjoy the same gifts we have received. The Earth is a gift to us and our descendants, and we must protect it with gratitude and commitment.</p><a class="btn btn-link p-0" href="post.html">Continue reading <i class="fa fa-long-arrow-alt-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </section>
+
+        <div class="row">
+            {% if user.is_authenticated and user.is_superuser %}
+            <div class="col-sm-6 col-md-4 mb-3 ml-4">
+                <a class="btn btn-warning" href="{% url 'quiz_creation' %}">Crear Quiz {{user|capfirst}}</a>
+            </div>
+            {% endif %}
+        </div>
+
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-2"></div>
+        {% for post in posts %}
+        <div class="col-md-8">
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-6">
-                        {% load static %}
-                    <div class="post-img"
-                    {% if post.imagen.url == '/media/imagen' %}
-                        style="background-image: url({% static 'imagen.jpg' %});"
+                        
+                    <div class="post-img">
+                    {% if post.imagen.url == '/media/imagenes' %}
+                        <img src="{% static 'not_image.jpg' %}" class="card-img-center" height="200px" alt="{{post.title}}">
                     {% else %}
-                        style="background-image: url({{post.imagen.url}});"
+                        <img src="{{ post.imagen.url }}" class="card-img-left" height="300px" alt="{{post.title}}">
                     {% endif %}
-                    >
+                </div>
 
                     </div>
-                    </div>
+                    
                     <div class="col-md-6 d-flex flex-column">
                     <div class="card-body">
-                        <h5 class="card-title">{{post.titulo}}</h5>
-                        <p class="card-text">{{post.descripcion}}</p>
-                        <p class="card-text"><small class="text-muted">Escrito por {{post.autor|capfirst}}</small></p>
+                        <h5 class="card-title">{{post.title}}</h5>
+                        <p class="card-text">{{post.description}}</p>
+                        <p class="card-text"><small class="text-muted">Escrito por {{post.author|capfirst}}</small></p>
                     </div>
                     <div class="card-footer ">
                         <div class="d-flex bd-highlight">
@@ -44,12 +71,12 @@
                                 {% endif %} -->
                                 </form>
                             </div>
-                            {% if user == post.autor %}
-                                <a href="{% url 'actualizar' post.id %}" class="py-2 flex-grow-1 bd-highlight border text-center no-style">
+                            {% if user == post.author %}
+                                <a href="{% url 'quiz_update' post.id %}" class="py-2 flex-grow-1 bd-highlight border text-center no-style">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                         <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg> Editar</a>
-                                <a href="{% url 'eliminar' post.id %}" class="py-2 flex-grow-1 bd-highlight border text-center no-style">
+                                <a href="{% url 'quiz_delete' post.id %}" class="py-2 flex-grow-1 bd-highlight border text-center no-style">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -65,6 +92,25 @@
                 </div>
                 </div>
         </div>
-        <div class="col-md-1"></div> 
+    </div>
+    {% endfor %}
+
+    <div class="d-flex mt-3">
+        {% if posts.has_next %}
+            <div><a href="?page={{ posts.next_page_number }}" class="btn btn-outline-success">Siguiente</a></div>
+        {% endif %}
+        {% if posts.has_previous %}
+            <div><a href="?page={{ posts.previous_page_number }}" class="btn btn-outline-success">Anterior</a></div>
+        {% endif %}
+    </div>
+        <div class="col-md-2"></div> 
     
-{% endblock %}
+        <section class="container py-6" >
+
+         </section>
+     <!-- Footer -->
+
+ <!-- </footer> -->
+</body>        
+{%endblock%}
+

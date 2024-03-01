@@ -5,9 +5,13 @@ from django.contrib.auth import logout
 from apps.utils import get_context
 
 
+def about_me(request):
+    # context = {'blogs': BlogModel.objects.all(),'selected_language':get_context(request)}
+    return render(request, 'blog/about_me.html', {'about_me': BlogModel.objects.all(),'current_page': 'blog','selected_language':get_context(request)})
+
 def blog(request):
     context = {'blogs': BlogModel.objects.all(),'selected_language':get_context(request)}
-    return render(request, 'blog/blog.html', {'blogs': BlogModel.objects.all(),'current_page': 'blog','selected_language':get_context(request)})
+    return render(request, 'blog/blog.html', {'blogs': BlogModel.objects.all(),'current_page': 'blog','selected_language':get_context(request), 'current_page':'blog'})
 
 
 def blog_detail(request, slug):
@@ -21,7 +25,7 @@ def blog_detail(request, slug):
 
 
 def see_blog(request):
-    context = {}
+    context = {'current_page':'blog'}
 
     try:
         blog_objs = BlogModel.objects.filter(user=request.user)
@@ -34,7 +38,7 @@ def see_blog(request):
 
 
 def add_blog(request):
-    context = {'form': BlogForm}
+    context = {'form': BlogForm,'current_page':'blog'}
     try:
         if request.method == 'POST':
             form = BlogForm(request.POST)

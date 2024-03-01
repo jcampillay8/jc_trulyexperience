@@ -3,6 +3,8 @@ import django
 from django.contrib.auth import authenticate, login
 from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404, render
+from .models import Post
 from django.core import paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -15,31 +17,39 @@ from apps.utils import get_context
 
 
 def quiz_index(request):
-    posts = Post.objects.all()
-    paginator = Paginator(posts, 3)
-    num_pagina = request.GET.get('page')
-    pagina_actual = paginator.get_page(num_pagina)
-    return render(request, 'Quizzes/quiz_index.html', {'posts': pagina_actual, 'current_page': 'Quizzes','selected_language':get_context(request)})
+    return redirect('quiz_post')
 
 @login_required(login_url='login')
 def createQuiz(request):
+    request.session['language'] = request.POST.get('language', 'English')
     if request.method == 'POST':
         form =PostForm(request.POST, request.FILES)    
         if form.is_valid():
             post = form.save(commit=False)
             post.autor = request.user
+            # post.autor = request.user.username
             post.save()
             return redirect('quiz_index')
     else:
         form = PostForm()
         return render(request, 'Quizzes/quiz_creation.html', {'form': form})
 
+
 @login_required(login_url='login')
-def seeQuiz(request, pk):
-    # post = Post.objects.get(id=pk)
-    post = get_object_or_404(Post, id=pk)
-    tieneLike = request.user in post.likes.all()
-    return render(request, 'Quizzes/quiz_post.html', {'post':post, 'likes': post.cantidad_likes(), 'tiene_like': tieneLike})
+def seeQuiz(request, pk=None):
+    if pk is not None:
+        post = get_object_or_404(Post, id=pk)
+        tieneLike = request.user in post.likes.all()
+    else:
+        post = None
+        tieneLike = False
+
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 3)
+    num_pagina = request.GET.get('page')
+    pagina_actual = paginator.get_page(num_pagina)
+
+    return render(request, 'Quizzes/quiz_post.html', {'post':post, 'likes': post.cantidad_likes() if post else 0, 'tiene_like': tieneLike,'current_page': 'Quizzes', 'selected_language':get_context(request), 'posts': pagina_actual})
 
 @login_required(login_url='login')
 def updateQuiz(request, pk):
@@ -87,14 +97,19 @@ def darLike(request, pk):
 
 @login_required(login_url='login')
 def dash_view(request, pk):
+
+    request.session['language'] = request.POST.get('language', 'English')
     post = get_object_or_404(Post, id=pk)
+    
+    request.session['username'] = request.user.username
+
     context = {
         'post': post,
-        'username': request.user.username,  # Guarda el nombre de usuario en el contexto
+        'username': request.user.username  
     }
 
-    if pk == 1:
-        return render(request, 'Quizzes/quiz_gcp_digital_leader.html', context)
+    if pk == 8:
+        return render(request, 'Quizzes/quiz_gcp_digital_leader.html', {'post': post,'username': request.user.username, 'current_page': 'Quizzes','selected_language':get_context(request) })
     else:
         return render(request, 'Quizzes/quiz_no_disponible.html', context)
     

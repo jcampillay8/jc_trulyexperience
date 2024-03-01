@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} | Fintech Funding {% endblock %}
 {% load static %}
+
 {% block content %}
 
 <!-- Alerts -->
@@ -32,7 +33,7 @@
     </section>
     
 
-         
+  <section id="dashboard" class="py-4">         
   <div class="container">
     
 <div class="row">
@@ -44,9 +45,12 @@
     <li class="breadcrumb-item active" aria-current="page">Sub-Industry</li>
   </ol>
 </nav> -->
-</div>
 
 
+<div class="col-md-2">
+  <a type="button" href="{% url 'fintech_funding_add'%}" class="btn btn-outline-success" >New Fintech Funding</a>
+    </div>
+  </div>
 </div>
 
 
@@ -64,10 +68,8 @@
 {% else %}
 
 
-<section class="my-1 p-5" id="container_fintech">
-<div class="col-md-2">
-  <a type="button" href="{% url 'fintech_funding_add'%}" class="btn btn-outline-success" >New Fintech Funding</a>
-    </div>
+
+
  <form class="form-inline my-2 my-lg-0 float-right p-2">
   
       <input class="form-control mr-md-2" type="search" placeholder="Search" id="search" aria-label="Search">
@@ -75,8 +77,8 @@
     </form>
     
 
-    <div class='table-area table-responsive'>
-<table class="table table-hover table-striped table-md">
+    <div class="search-output-area table-responsive">
+<table class="table table-hover table-striped table-sm">
   <thead>
     <tr>
       <th scope="col">Category</th>
@@ -86,8 +88,22 @@
         <th scope="col"></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="result-rows">
+  </table>
+</div>
 
+<div class='table-area table-responsive'>
+  <table class="table table-hover table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+        <th scope="col">Amount   ({{currency}})</th>
+         <th scope="col">Date</th>
+          <th scope="col"></th>
+      </tr>
+    </thead>
+ <tbody>
 {% for ex in page_obj%}
 
      <tr class="text-lg-left large">
@@ -161,6 +177,13 @@
 
 </section>
 
+
+
 </body>
+<script src={% static 'js/search.js' %}></script>
+
+
+
 
 {%endblock%}
+

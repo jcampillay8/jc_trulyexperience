@@ -109,7 +109,7 @@ nav .wrapper{
 }
 .mega-box{
   position: absolute;
-  left: 0;
+  left: 20px;
   width: 100%;
   padding: 0 30px;
   top: 85px;
@@ -129,13 +129,13 @@ nav .wrapper{
   background: #242526;
   padding: 25px 20px;
   display: flex;
-  width: 70%;
+  width: 100%;
   justify-content: space-between;
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 .mega-box .content .row{
-  width: calc(25% - 30px);
+  width: calc(20% - 30px);
   line-height: 45px;
 }
 .content .row img{
@@ -149,7 +149,7 @@ nav .wrapper{
   font-weight: 500;
 }
 .content .row .mega-links{
-  margin-left: -40px;
+  margin-left: -20px;
   border-left: 1px solid rgba(255,255,255,0.09);
 }
 .row .mega-links li{
@@ -157,7 +157,7 @@ nav .wrapper{
 }
 .row .mega-links li a{
   padding: 0px;
-  padding: 0 20px;
+  padding: 0 40px;
   color: #d9d9d9;
   font-size: 17px;
   display: block;

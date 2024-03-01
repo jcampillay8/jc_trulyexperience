@@ -10,26 +10,28 @@ from .models import Question, Choice, UserQuestionValue
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F  
 import random
+import requests
+import json
 
 theme = dbc.themes.BOOTSTRAP
 
 # Initialize the Dash app with Bootstrap
-app = DjangoDash('MyDashApp', add_bootstrap_links=True, external_stylesheets=[theme, dbc.icons.BOOTSTRAP]) 
+# app = DjangoDash('MyDashApp', add_bootstrap_links=True, external_stylesheets=[theme, dbc.icons.BOOTSTRAP], meta_tags=[]) 
+app = DjangoDash('MyDashApp', add_bootstrap_links=True, external_stylesheets=[theme, dbc.icons.BOOTSTRAP], meta_tags = None)
+
 
 # Asume que ya tienes un usuario
 #user = User.objects.get(username='jcampillay')
 
-@app.callback(Output('output', 'children'), [Input('username-store', 'data')])
-def update_output(username):
-    if username is not None:
-        user = User.objects.get(username=username)
-        user_id = user.id
-        # el resto de tu aplicación Dash
-    else:
-        return "El nombre de usuario no está definido."
+# Definir un callback que utiliza el objeto User
+# @app.callback(
+#     Output('output-div', 'children'),
+#     Input('input-element', 'value'))
+# def update_output(input_value, user):
+#     return user.id
 
 # print(user)
-# user_id = user.id
+user_id = 11
 
 total_questions = 0
 correct_answers = 0
@@ -40,80 +42,151 @@ questions = Question.objects.all()
 
 def serve_layout():  
     return dbc.Container(
-        [
-            dbc.Row(dbc.Col(html.H1("Quiz_GCP - Digital Leader", className='text-center mb-4'), width=12)),
-            html.Div(id='question-index', style={'display': True}),
-            dbc.Row(
-                [
-                    dbc.Col(html.H4(id='question', className='text-center mb-4'), width=12),
-                    dbc.Col(
-                                [
-                                    dcc.Checklist(id='options', inputStyle={"margin-right": "20px"}),
-                                ],
-                                width={'size': 12, 'offset': 1},  
-                            ),
-                ],
-                className='justify-content-center mb-4',
-            ),
-            dbc.Row(
-                [
-    dbc.Col(
-        [
-            html.Button('Submit', id='submit', n_clicks=0, style={'background-color': 'blue', 'color': 'white'}, className='mx-2'),
-            html.Button('Next', id='next', n_clicks=0, style={'background-color': 'green', 'color': 'white'}, className='mx-2'),
-            html.Span("Filtro", className="mx-2"),  
-            dcc.Input(id='input_threshold', type='number', value=input_threshold, style={"width": "50px"}),  
-            html.Button("Explanation", id="open-explanation", style={'background-color': 'yellow', 'color': 'black'}, className='mx-2'),
-            html.Button("Reset Values", id="reset-values", style={'background-color': 'red', 'color': 'white'}, className='mx-2'), 
-        ],
-        width={'size': 6, 'offset': 1}, 
-    ),
-    dcc.ConfirmDialog(
-        id="confirm",
-        message="",
-    ),
-    dcc.ConfirmDialog(  
-    id="confirm-reset",
-    message="¿Seguro que desea resetar los valores?",
-    ),
-                ],
-                className='justify-content-center',
-            ),
-            dbc.Col(html.Div(id='answer', className='text-center mt-4'), width={'size': 6, 'offset': 3}),
-    dbc.Row(
-        [
-            dbc.Col(
-                [
-                    dbc.Row(html.Div(id='total_questions', className='text-center'), className='mt-2 mb-1'),
-                    dbc.Row(html.Div(id='correct_answers', className='text-center'), className='mt-2 mb-1'),
-                    dbc.Row(html.Div(id='incorrect_answers', className='text-center'), className='mt-2 mb-1'),
-                ],
-                width=4,
-                align="start"  
-            ),
-                dbc.Col(
-                    daq.Gauge(
-                        id='gauge-value',
-                        size=150,
-                        showCurrentValue=True,
-                        color={"gradient":True,"ranges":{"green":[0,8],"yellow":[8,14],"red":[14,20]}},
-                        value=0,
-                        label='    ',
-                        max=20,
-                        min=0,
-                    ),
-                    width=4,
-                )
-        ],
-        justify="center",
-        align="center",  
-    ),
-    dcc.Store(id='next_clicked', data=0),
-        ],
-        fluid=True,
-    )
+    [
+        html.Br(),
+        html.Br(),
+        html.Br(),
 
-app.layout = serve_layout  # Pasa la función serve_layout a app.layout.
+        dbc.Row(dbc.Col(html.H1("Quiz_GCP - Digital Leader", className='text-center mb-4 '), width=12)),
+
+        # Agrega las pestañas aquí
+        dcc.Tabs(id="tabs-quiz", value='tab-1-quiz', children=[
+            dcc.Tab(label='Quiz', value='tab-1-quiz', children=[
+                # Mueve todo el layout existente aquí
+                html.Div(id='question-index', style={'display': True}),
+                dbc.Row(
+                    [
+                        dbc.Col(html.H4(id='question', className='text-center mb-4'), width=12),
+                        dbc.Col(
+                                    [
+                                        dcc.Checklist(id='options', inputStyle={"margin-right": "20px"}),
+                                    ],
+                                    width={'size': 12, 'offset': 1},  
+                                ),
+                    ],
+                    className='justify-content-center mb-4',
+                ),
+                dbc.Row(
+                    [
+                dbc.Col(
+                    [
+                        html.Button('Submit', id='submit', n_clicks=0, style={'background-color': 'blue', 'color': 'white'}, className='mx-2'),
+                        html.Button('Next', id='next', n_clicks=0, style={'background-color': 'green', 'color': 'white'}, className='mx-2'),
+                        html.Span("Filtro", className="mx-2"),  
+                        dcc.Input(id='input_threshold', type='number', value=input_threshold, style={"width": "50px"}),  
+                        html.Button("Explanation", id="open-explanation", style={'background-color': 'yellow', 'color': 'black'}, className='mx-2'),
+                        html.Button("Reset Values", id="reset-values", style={'background-color': 'red', 'color': 'white'}, className='mx-2'), 
+                    ],
+                    width={'size': 6, 'offset': 1}, 
+                ),
+                dcc.ConfirmDialog(
+                    id="confirm",
+                    message="",
+                ),
+                dcc.ConfirmDialog(  
+                id="confirm-reset",
+                message="¿Seguro que desea resetar los valores?",
+                ),
+                            ],
+                            className='justify-content-center',
+                        ),
+                        dbc.Col(html.Div(id='answer', className='text-center mt-4'), width={'size': 6, 'offset': 3}),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Row(html.Div(id='total_questions', className='text-center'), className='mt-2 mb-1'),
+                                dbc.Row(html.Div(id='correct_answers', className='text-center'), className='mt-2 mb-1'),
+                                dbc.Row(html.Div(id='incorrect_answers', className='text-center'), className='mt-2 mb-1'),
+                            ],
+                            width=4,
+                            align="start"  
+                        ),
+                            dbc.Col(
+                                daq.Gauge(
+                                    id='gauge-value',
+                                    size=150,
+                                    showCurrentValue=True,
+                                    color={"gradient":True,"ranges":{"green":[0,8],"yellow":[8,14],"red":[14,20]}},
+                                    value=0,
+                                    label='    ',
+                                    max=20,
+                                    min=0,
+                                ),
+                                width=4,
+                            )
+                    ],
+                    justify="center",
+                    align="center",  
+                ),
+                dcc.Store(id='next_clicked', data=0),
+            ]),
+        
+
+        dcc.Tab(label='Explanation', value='tab-2-explanation', children=[
+                html.Div(id='explanation', className='text-center mt-4'),
+            ]),
+        dcc.Tab(label='Edit', value='tab-2-edit', children=[
+            dcc.Textarea(id='edit-question-input', style={"width": "100%"}),
+            html.Div(id='edit-options-inputs'),  # Contenedor para los campos de entrada de las opciones
+            html.Button('Save', id='edit-save', n_clicks=0, style={'background-color': 'purple', 'color': 'white'}, className='mx-2'),
+        ]),
+        ]),
+    ],
+    fluid=True,
+)
+
+app.layout = serve_layout
+
+@app.callback(
+    Output('output-div', 'children'),
+    Input('input-user_id', 'value'),
+    prevent_initial_call=True)
+def update_user_id(input_value, user):
+    print('user')
+    return user.id
+
+@app.callback(
+    Output('edit-question-input', 'value'),
+    Output('edit-options-inputs', 'children'),
+    Input('tabs-quiz', 'value'),
+    State('question', 'children'),
+    State('options', 'options')
+)
+def load_question(tab, question, options):
+    if tab == 'tab-2-edit':
+        # Carga la pregunta y las opciones en los campos de entrada cuando se selecciona la pestaña 'Edit'
+        options_inputs = [dcc.Input(value=option['label'], id=f'edit-option-input-{i}', style={"width": "100%"}) for i, option in enumerate(options)]
+        return question, options_inputs
+    return '', []
+
+@app.callback(
+    Output('save-confirm', 'displayed'),
+    Input('edit-save', 'n_clicks'),
+    State('edit-question-input', 'value'),
+    State('edit-options-inputs', 'children')
+)
+def save_question(n, question, options_inputs):
+    if n > 0:
+        # Recoge los valores de los campos de entrada de las opciones
+        options = [dash.callback_context.states[f'edit-option-input-{i}.value'] for i in range(len(options_inputs))]
+
+        # Prepara los datos para enviar al servidor
+        data = {
+            'question_text': question,
+            'choices': options
+        }
+
+        # Envía una solicitud POST al servidor con los datos
+        response = requests.post('http://your-server.com/update-question', data=json.dumps(data))
+
+        # Comprueba si la solicitud fue exitosa
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    return False
+
 
 @app.callback(
     [Output('question', 'children'),
@@ -161,6 +234,23 @@ def update_question_and_gauge(n_clicks, answer, threshold, question_id):
         return question, options, [], question_index, gauge_value
 
     return dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update
+
+
+#Agrega esto a tus callbacks
+@app.callback(
+    Output('question', 'children', allow_duplicate=True),
+    Output('options', 'options', allow_duplicate=True),
+    Input('edit', 'n_clicks'),
+    State('question', 'children'),
+    State('options', 'options'),
+    prevent_initial_call=True
+)
+def edit_question(n, question, options):
+    if n > 0:
+        # Convierte la pregunta y las opciones en campos de entrada editables
+        question = dcc.Input(value=question, id='question-input')
+        options = [dcc.Input(value=option['label'], id=f'option-input-{i}') for i, option in enumerate(options)]
+    return question, options
 
 @app.callback(
     Output('answer', 'children'),
@@ -221,20 +311,29 @@ def update_incorrect_answers(n_clicks, value):
     return "Respuestas incorrectas: {}".format(incorrect_answers)
 
 @app.callback(
-    [Output("confirm", "displayed"), Output("confirm", "message")],
-    [Input("open-explanation", "n_clicks")],
-    [State("confirm", "displayed"), State("question-index", "children")]
+    Output("explanation", "children"),
+    [Input("tabs-quiz", "value"), Input("next", "n_clicks")],
+    [State("question-index", "children")]
 )
-def toggle_modal_and_update_message(n_clicks, is_open, question_id):
-    if n_clicks is not None and n_clicks > 0:
+def update_explanation(tab, n_clicks, question_id):
+    if tab == 'tab-2-explanation' and n_clicks is not None and n_clicks > 0:
         question_id = int(question_id)
         try:
             selected_question = Question.objects.get(id=question_id)
-            return not is_open, selected_question.explanation
+            return selected_question.explanation
         except Question.DoesNotExist:
             pass
-    return is_open, ""
+    return ""
 
+@app.callback(
+    Output("tabs-quiz", "value"),
+    [Input("open-explanation", "n_clicks")],
+    [State("tabs-quiz", "value")]
+)
+def switch_tab(n_clicks, current_tab):
+    if n_clicks is not None and n_clicks > 0:
+        return 'tab-2-explanation'
+    return current_tab
 
 @app.callback(
     Output('next_clicked', 'data'),

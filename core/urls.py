@@ -11,7 +11,7 @@ urlpatterns = [
     path('guest_user/', include('guest_user.urls')),
     path('professional_studies/', include("apps.Professional_Studies.urls")),
     path('contact/',include("apps.contact.urls")),
-    path('blog/',include("apps.blog.urls")),
+    path('about_me/',include("apps.blog.urls")),
     path('portfolio/',include("apps.portfolio.urls")),
     path('Quizzes/',include("apps.Quizzes.urls")),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),

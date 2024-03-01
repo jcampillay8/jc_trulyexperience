@@ -16,15 +16,16 @@ import os
 #     return redirect('expenses')
 
 
-# @login_required(login_url='/authentication/login')
-# def search_expenses(request):
-#     search_val = json.loads(request.body).get('data')
-#     expenses = Expense.objects.filter(name__icontains=search_val, owner=request.user) | Expense.objects.filter(
-#         amount__startswith=search_val, owner=request.user) | Expense.objects.filter(
-#         date__icontains=search_val, owner=request.user) | Expense.objects.filter(
-#         category__icontains=search_val, owner=request.user)
-#     data = list(expenses.values())
-#     return JsonResponse(data, safe=False)
+@login_required(login_url='/authentication/login')
+def search_fintech_funding(request):
+    print('searching for data')
+    search_val = json.loads(request.body).get('data')
+    fintech_funding = Fintech_Funding.objects.filter(name__icontains=search_val, owner=request.user) | Fintech_Funding.objects.filter(
+        amount__startswith=search_val, owner=request.user) | Fintech_Funding.objects.filter(
+        date__icontains=search_val, owner=request.user) | Fintech_Funding.objects.filter(
+        category__icontains=search_val, owner=request.user)
+    data = list(fintech_funding.values())
+    return JsonResponse(data, safe=False)
 
 
 # @login_required(login_url='/authentication/login')
@@ -87,21 +88,21 @@ def fintech_funding_add(request):
         messages.error(request,  'Date is required')
         return render(request=request, template_name='Fintech_Data_Dashboard/add_fintech_funding.html', context=context)
     if not category:
-        messages.error(request,  'Expense Category is required')
+        messages.error(request,  'Fintech Funding Category is required')
         return render(request=request, template_name='Fintech_Data_Dashboard/add_fintech_funding.html', context=context)
-    expense = Expense.objects.create(
+    fintech_funding_add = Fintech_Funding.objects.create(
         amount=amount, name=name, date=date, category=category, owner=request.user)
 
-    if expense:
-        messages.success(request,  'Expense was submitted successfully')
-        return redirect('expenses')
+    if fintech_funding:
+        messages.success(request,  'Fintech Funding was submitted successfully')
+        return redirect('fintech_funding')
 
     return render(request=request, template_name='Fintech_Data_Dashboard/fintech_funding.html')
 
 
 # @login_required(login_url='/authentication/login')
 def fintech_funding_edit(request, id):
-    return redirect('expenses')
+    return redirect('fintech_funding')
 #     expense = Expense.objects.get(pk=id)
 #     categories = Category.objects.all()
 #     data = []
@@ -141,7 +142,7 @@ def fintech_funding_edit(request, id):
 
 # @login_required(login_url='/authentication/login')
 def fintech_funding_delete(request):
-    return redirect('expenses')
+    return redirect('fintech_funding')
 #     expenses = Expense.objects.all_expenses()
 #     context = {
 #         'expenses': expenses

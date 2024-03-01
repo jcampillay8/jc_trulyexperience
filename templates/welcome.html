@@ -8,7 +8,7 @@
 
     <title> TITULO {% block title %} {% endblock %}</title>
 
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">    
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/mont_rainer.css' %}" rel="stylesheet">
 
   </head>
@@ -16,24 +16,27 @@
   <body class="text-center flex-column justify-content: start">
     <header class="d-flex flex-column">
       <div class="row">
-        <div class="col-md-4 text-md-left text-center">
+        <div class="col-md-4 text-md-left text-center d-flex">
           <a href="{% if request.user.is_authenticated %}{% url 'home' %}{% else %}{% url 'welcome' %}{% endif %}">
-          <img src="{% static 'img/the-jaime-campillay-experience2.png' %}" id="image" style="width: 100%; max-width: 700px; padding-left: 20px; padding-right: 20px;" alt="Card image cap;">
-        </a>
+            
+            <img src="{% static 'img/the-jaime-campillay-experience2.png' %}" id="image" class="container-fluid">
+          </a>
         </div>
+
+
         <div class="col-md-6 text-md-right text-right">
           <nav class="nav nav-masthead justify-content-end">
               <a class="nav-link active" id="login-link" href="/authentication/login">{{ selected_language.welcome.header_welcome.login }}</a>
               <a class="nav-link active" id="register-link" href="/authentication/register">{{ selected_language.welcome.header_welcome.register }}</a>
               <a class="nav-link active" id="forgot-password-link" href="/authentication/request-password">{{ selected_language.welcome.header_welcome.forgot_password }}</a>
           </nav>
-      </div>      
+      </div>
         <div class="col-md-2 text-md-right text-center">
           {% include 'partials/_choose_language.html' %}
 
         </div>
     </div>
-        
+
       </header>
 
       {% block content %} {% endblock %}
@@ -43,7 +46,7 @@
           <p class="bigger-text" style="font-size: 20px; color: white;">Copyright © 2024 The Jaime Campillay Experience.</p>
         </div>
       </footer>
-      
+
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -4,19 +4,18 @@ let outputArea = document.querySelector(".search-output-area");
 let resultRows = document.querySelector(".result-rows");
 const searchBtn = document.querySelector(".search-btn");
 const currentPaginator = document.querySelector(".container-pagination");
-
 tableArea.style.display = "block";
 outputArea.style.display = "none";
 currentPaginator.style.display = "block";
 const showResults = (data) => {
-  for (let expense = 0; expense < data.length; expense++) {
+  for (let fintech_funding = 0; fintech_funding < data.length; fintech_funding++) {
     resultRows.innerHTML += `
         <tr class="text-sm-left small">
-        <th scope=\"row\">${data[expense].submitted_by_name}</th>
-     <td>${data[expense].amount}</td>
-      <td>${data[expense].purpose}</td>
-       <td>${new Date(data[expense].requested_on).toDateString()}</td>
-          <td>${data[expense].status}</td>
+     <td>${data[fintech_funding].amount}</td>
+      <td>${data[fintech_funding].description}</td>
+      <td>${data[fintech_funding].category}</td>
+       <td>${new Date(data[fintech_funding].date).toDateString()}</td>
+
        </tr>
         `;
   }
@@ -46,7 +45,7 @@ const searchItems = (e) => {
     return;
   }
 
-  fetch("/expenses/search_expenses", {
+  fetch("/Fintech_Data_Dashboard/", {
     method: "POST",
     headers: { "X-CSRFToken": csrftoken },
     body: JSON.stringify({ data: field.value.trim() }),

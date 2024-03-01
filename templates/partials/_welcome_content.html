@@ -4,15 +4,14 @@
 
 {%endblock%} 
 
-
 {%block content%}
 
 <div class="cover-container h-100 d-flex mx-auto flex-column" style="padding-top: 100px;">      
           
 
-    <main role="main" class="inner cover">
+    <main role="main" class="inner cover" style="background-color: rgba(255, 255, 255, 0.7); border-radius: 15px; padding: 20px;">
       <h1 class="cover-heading" id="typewriter"></h1>
-      <p class="lead">{{ selected_language.welcome.welcome_content.text }}</p>
+      <p class="lead" style="font-size: 1.1em; font-weight: bold;">{{ selected_language.welcome.welcome_content.text }}</p>
       <p class="lead">
         <a href="guest_login" class="btn btn-lg btn-secondary" style="background-color: #007bff;">{{ selected_language.welcome.welcome_content.button_guest }}</a>
         <a href="/authentication/login" class="btn btn-lg btn-secondary" style="background-color: #007bff;">{{selected_language.welcome.welcome_content.button_authenticated }}</a>
@@ -21,4 +20,4 @@
 
   </div>
 
-  {%endblock%}
+{%endblock%}

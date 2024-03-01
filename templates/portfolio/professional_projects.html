@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content%}
+
+    <title> TITULO {% block title %} {% endblock %}</title>
+
+  <body >
+
+      <!-- <section class="position-relative py-6"> -->
+        <section class="position-relative py-6">
+
+            </section>
+
+<!-- Work Experience Section -->
+<section class="container py-5">
+    <h1 class="text-center">PROFESSIONAL PROJECTS</h1>
+</section>
+
+<!-- Skills Section -->
+<section class="container py-5" id="six">
+<h1> Estragy Cloud - Redbanc </h1>
+<div class="row justify-content-around">
+    <div class="col-4">
+        <img src="{% static 'img/EY_gif.gif' %}" alt="Descripción de la imagen" class="img-fluid">
+
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Título de la tarjeta</h5>
+                <p class="card-text">Aquí va el texto de tu tarjeta.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+
+<!-- Portfolio Section -->
+<section class="container py-5" id="five">
+     <h1> ALM Tool Finance - Banco Internacional </h1>
+     <div class="row justify-content-around">
+        <div class="col-4">
+            <img src="{% static 'img/Techint_wall.jpg' %}" alt="Descripción de la imagen" class="img-fluid">
+        </div>
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Clearpix</h5>
+                    <p class="card-text">Aquí va el texto de tu tarjeta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Odoo - ERP</h5>
+                    <p class="card-text">Aquí va el texto de tu tarjeta.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="{% static 'img/sideboom.jpg' %}" alt="Descripción de la imagen" class="img-fluid">
+        </div>
+        
+    </div>
+</section>
+
+
+<!-- About Section -->
+<section class="container py-5" id="four">
+    <h1> ETL, SQL-MS, BICE Inversiones </h1>
+    <div class="row justify-content-around">
+        <div class="col-4">
+            <img src="{% static 'img/clearpix_bag.jpg' %}" alt="Descripción de la imagen" class="img-fluid">
+        </div>
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Clearpix</h5>
+                    <p class="card-text">Aquí va el texto de tu tarjeta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Título de la tarjeta</h5>
+                    <p class="card-text">Aquí va el texto de tu tarjeta.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Título de la tarjeta</h5>
+                    <p class="card-text">Aquí va el texto de tu tarjeta.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <img src="{% static 'img/Odoo_Official_Logo.png' %}" alt="Descripción de la imagen" class="img-fluid">
+        </div>
+        
+    </div>
+    
+</section>
+
+<!-- More Sections -->
+<section class="container py-5" id="three">
+    <h1> RPA Automated Processes Scotiabank </h1>
+    <!-- Add your content here -->
+</section>
+
+<section class="container py-5" id="two">
+    <h1> Project "Los Bronces III" - Anglo American </h1>
+    <!-- Add your content here -->
+</section>
+
+<section class="container py-5" id="one">
+    <h1> Deployment & Administration Odoo ERP </h1>
+    <!-- Add your content here -->
+</section>
+
+ <!-- Footer -->
+
+ <!-- </footer> -->
+
+ <!-- Bootstrap script link -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+
+
+      {%endblock%}

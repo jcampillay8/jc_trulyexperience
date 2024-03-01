@@ -7,11 +7,21 @@
 }
 
 .nav-links .drop-menu{
-  width: 300px; /* Ajusta este valor según tus necesidades */
+  width: 400px; /* Ajusta este valor según tus necesidades */
 }
 
-.new-dropdown .mega-box .content .row{
+.AboutMe-dropdown .mega-box .content .row{
   width: calc(50% - 30px); /* Ajusta el ancho de cada fila al 50% */
+  line-height: 45px;
+}
+
+.mega-box .content {
+  display: flex;
+  align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
+}
+
+.portafolio-dropdown .mega-box .content .row{
+  width: calc(75% - 100px); /* Ajusta el ancho de cada fila al 60% */
   line-height: 45px;
 }
 </style>
@@ -50,8 +60,8 @@
           <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.what_am_I_studying_now }}</a></li>
         </ul>
       </li> -->
-      <li class="new-dropdown">
-        <a class="desktop-item menu-link {% if current_page == 'blog' %}active{% endif %}" href="{% url 'blog' %}">{{ selected_language.selected_language.menu_home.About_Me }}</a>
+      <li class="AboutMe-dropdown">
+        <a class="desktop-item menu-link {% if current_page == 'blog' or current_page == 'professional_studies' %}active{% endif %}" href="{% url 'about_me' %}">{{ selected_language.selected_language.menu_home.About_Me }}</a>
         <input type="checkbox" id="showAboutMe">
         <label for="showAboutMe" class="mobile-item">About Me</label>
         <div class="mega-box">
@@ -59,11 +69,21 @@
             <div class="row">
               <header>My Profile</header>
               <ul class="mega-links">
-                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.who_am_I }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_are_my_interest }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_do_I_want_to_learn }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_do_I_know_now }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_am_I_studying_now }}</a></li>
+                <li><a href="{% url 'about_me' %}#who_am_I">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.who_am_I }}</a></li>
+                <li><a href="{% url 'about_me' %}#what_are_my_interests">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_are_my_interest }}</a></li>
+                <li><a href="{% url 'about_me' %}#what_do_I_want_to_learn">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_do_I_want_to_learn }}</a></li>
+                <li><a href="{% url 'about_me' %}#what_do_I_know_now">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_do_I_know_now }}</a></li>
+                <li><a href="{% url 'about_me' %}#what_am_I_currently_studying">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.My_Profile.what_am_I_studying_now }}</a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <!-- <header><a class="desktop-item menu-link {% if current_page == 'blog' %}active{% endif %}" href="{% url 'blog' %}">{{ selected_language.selected_language.menu_home.blog }}</a></header> -->
+              <header><a class="desktop-item menu-link {% if current_page == 'blog' %}active{% endif %}" href="{% url 'blog' %}">Blog</a></header>
+              <ul class="mega-links">
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.blog.one }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.blog.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.blog.three }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.About_Me_Dropdown.blog.four }}</a></li>
               </ul>
             </div>
             <div class="row">
@@ -79,7 +99,7 @@
           </div>
         </div>
       </li>
-      <li>
+      <li class="portafolio-dropdown">
         <!-- <a href="#" class="desktop-item ">Portfolio</a> -->
         <a class="desktop-item menu-link {% if current_page == 'portfolio_home' %}active{% endif %}" href="{% url 'portfolio_home' %}">{{ selected_language.selected_language.menu_home.Portfolio }}</a>
         <input type="checkbox" id="showPortfolio">
@@ -89,25 +109,29 @@
             <div class="row">
               <header>Personal Projects</header>
               <ul class="mega-links">
-                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.one }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.four }}</a></li>
                 <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.three }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Personal_Projects.one }}</a></li>
               </ul>
             </div>
             <div class="row">
               <header>Professional Projects</header>
               <ul class="mega-links">
-                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.one }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.six }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.five }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.four }}</a></li>
                 <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.three }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Professional_Projects.one }}</a></li>
               </ul>
             </div>
             <div class="row">
               <header>Work Experience</header>
               <ul class="mega-links">
-                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.one }}</a></li>
-                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.two }}</a></li>
                 <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.three }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.two }}</a></li>
+                <li><a href="#">{{ selected_language.selected_language.menu_home.Portfolio_Dropdown.Work_Experience.one }}</a></li>
               </ul>
             </div>
           </div>

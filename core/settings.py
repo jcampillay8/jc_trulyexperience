@@ -227,6 +227,8 @@ PLOTLY_DASH = {
 
     # Flag controlling local serving of assets
     "serve_locally": False,
+    # Name of view wrapping function
+    "view_decorator": "django_plotly_dash.access.login_required",
 }
 
 PLOTLY_COMPONENTS = [

@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.quiz_index, name='quiz_index'),
+    path('quiz_post/', views.seeQuiz, name='quiz_post'),
     path('quiz_creation/', views.createQuiz, name='quiz_creation'),
     path('quiz_post/<int:pk>', views.seeQuiz, name='quiz_post'),
     path('quiz_update/<int:pk>', views.updateQuiz, name='quiz_update'),

@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from froala_editor.fields import FroalaField
+
 
 
 class BlogModel(models.Model):
     title = models.CharField(max_length=1000)
-    content = FroalaField()
+    content = models.TextField()
     slug = models.SlugField(max_length=1000, null=True, blank=True)
     user = models.ForeignKey(User, blank=True, null=True,
                              on_delete=models.CASCADE)

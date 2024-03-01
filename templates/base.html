@@ -1,9 +1,11 @@
 
 {% load static %}
 
-<!doctype html>
+<!doctype html5>
 <html lang="en">
   <head>
+  
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
@@ -15,15 +17,25 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"> -->
     <link href="{% static 'css/style_header.css' %}" rel="stylesheet">
     <!-- <link href="{% static 'css/grid.css' %}" rel="stylesheet"> -->
-    <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/business-casual.css' %}" rel="stylesheet"> -->
     <link href="{% static 'css/default.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_menu.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_home.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
 
+    <style>
+      /* Establece la altura mínima del cuerpo para que ocupe todo el espacio vertical */
+
+
+
+      /* Evita el desbordamiento horizontal */
+      html, body {
+        overflow-x: hidden;
+      }
+    </style>
 
   </head>
 
@@ -74,6 +86,7 @@
     </script>
     <script src="{% static 'js/menusidebar.js' %}"></script>
     <script src="{% static 'js/choose_language.js' %}"></script>
+    <!-- <script src="{% static 'js/search.js' %}"></script> -->
     <script>
       // Seleccionar el idioma guardado en la sesión, si existe
       const savedLanguage = '{{ request.session.language|default:"English" }}';
